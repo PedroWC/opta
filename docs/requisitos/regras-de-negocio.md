@@ -1,0 +1,16 @@
+# Regras de negócio
+
+As regras abaixo valem para todo o sistema. Cada uma é verificada por testes (ver [rastreabilidade](rastreabilidade.md)). Requisitos em [ERS](ers.md). Fontes legais e fórmulas detalhadas em [especificação](../especificacao.md), seção 3. Itens marcados com ⚠️ precisam de conferência na fonte antes de codificar.
+
+| ID | Regra | Fonte |
+|---|---|---|
+| RN-01 | O horizonte da simulação é de 2026 a 2033; anos fora dele são rejeitados. | EC 132/2023; LC 214/2025 |
+| RN-02 | A transição CBS/IBS segue a tabela por ano: 2026 teste (CBS 0,9%, IBS 0,1%); 2027 CBS plena e fim de PIS/Cofins; 2029–2032 IBS em 10/20/30/40% com ICMS/ISS em 90/80/70/60%; 2033 IBS pleno e ICMS/ISS extintos. Alíquotas de referência são premissa configurável. ⚠️ | LC 214/2025 |
+| RN-03 | Dinheiro é calculado em centavos, com arredondamento meio para cima, e alíquotas com precisão de 4 casas decimais. | Decisão de projeto (ADR-0003) |
+| RN-04 | Alíquota efetiva do Simples = (RBT12 × alíquota nominal − parcela a deduzir) ÷ RBT12, por anexo e faixa. | LC 123/2006 |
+| RN-05 | Fator R = folha dos 12 meses ÷ RBT12; a partir de 28%, atividades do Anexo V passam ao Anexo III. | LC 123/2006 |
+| RN-06 | No Simples híbrido, CBS/IBS saem do DAS e são apurados no regime regular (débito menos crédito); o cliente B2B aproveita crédito cheio. A opção é anual. ⚠️ | LC 214/2025; LC 123/2006 |
+| RN-07 | Lucro Presumido: presunção por atividade; IRPJ 15% mais adicional de 10% acima de R$ 20 mil/mês de base; CSLL 9%; PIS/Cofins cumulativos até 2026; CBS/IBS em regime normal depois. ⚠️ (inclui LC 224/2025) | Lei 9.249/1995; LC 214/2025 |
+| RN-08 | A recomendação escolhe o regime de menor carga no ano e de menor carga acumulada em 2026–2033, e informa o fator que mais pesou na diferença. | Decisão de produto |
+| RN-09 | A entrada é validada: CNAE no formato `0000-0/00`; receita e folha não negativas; percentuais inteiros de 0 a 100. | Decisão de produto |
+| RN-10 | No Simples puro, o crédito de CBS/IBS do adquirente PJ é limitado ao valor embutido no DAS; no híbrido, é integral. ⚠️ | LC 214/2025 |
