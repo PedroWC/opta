@@ -40,7 +40,7 @@ Estas são as issues criadas em `PedroWC/opta` (numeração conferida). Cada uma
 
 **#9 Contrato OpenAPI** — escrito antes de #10 e #11. *Aceite:* validado e usado em testes de contrato. (RNF-03, RNF-07)
 
-**#10 a #12** — implementam o contrato e a interface, com testes de segurança de entrada (400/422). (RF-01, RF-04, RF-05, RF-08)
+**#10 a #12** — implementam o contrato e a interface, com testes de segurança de entrada (400/422). (RF-01, RF-04, RF-05, RF-08) A #12 é detalhada e dividida em itens FE-01 a FE-16 no [backlog do front-end](../frontend/backlog-frontend.md).
 
 **#13 Propriedades e mutação** — fast-check nas fórmulas e Stryker no núcleo. *Aceite:* score de mutação definido em ADR.
 

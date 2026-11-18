@@ -29,3 +29,4 @@ Backend 100% orientado a objetos (ADR-0001), em camadas: `src/domain` ← `src/a
 - [Casos de uso](docs/produto/casos-de-uso.md) · [Histórias](docs/produto/historias-de-usuario.md) · [Mapa do site](docs/produto/mapa-do-site.md)
 - [ADRs](docs/arquitetura/adr/README.md) · [Glossário](docs/arquitetura/glossario.md)
 - [Backlog inicial](docs/processo/backlog-inicial.md) · [Nomenclatura](docs/processo/nomenclatura.md) · [Definição de pronto](docs/processo/definicao-de-pronto.md)
+- [Plano do front-end](docs/frontend/plano-frontend.md) · [Wireframes](docs/prototipos/wireframes-simulador.md) · [Backlog do front-end](docs/frontend/backlog-frontend.md) · [Registro de decisões](docs/processo/registro-de-decisoes.md)
