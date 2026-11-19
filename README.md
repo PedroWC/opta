@@ -18,6 +18,10 @@ npm run check      # tipos, lint (OO e camadas) e testes com cobertura
 npm run dev        # http://localhost:3000/v1/health e POST /v1/simulacoes (contrato em docs/api/openapi.yaml)
 ```
 
+## Persistência
+
+`OPTA_DB=memory` (padrão), `sqlite` ou `oracle` escolhe o repositório das tabelas fiscais; veja [persistência](docs/arquitetura/persistencia.md). Exemplo: `OPTA_DB=sqlite npm run dev` (cria `opta.db`, que o git ignora).
+
 ## Arquitetura
 
 Backend 100% orientado a objetos (ADR-0001), em camadas: `src/domain` ← `src/application` ← `src/infrastructure` e `src/presentation`; `src/composition-root.ts` monta as dependências e `src/main.ts` sobe o servidor.
