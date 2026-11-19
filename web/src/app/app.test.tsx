@@ -1,5 +1,6 @@
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { StrictMode } from "react";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, test } from "vitest";
 import { expectNoA11yViolations } from "../test-utils/axe.ts";
@@ -69,6 +70,22 @@ describe("Navegação e rotas", () => {
     await userEvent.click(screen.getByRole("link", { name: "Metodologia" }));
     expect(screen.getByRole("main")).toHaveFocus();
     expect(screen.getByText("Página: Metodologia — Opta")).toBeInTheDocument();
+  });
+});
+
+describe("RNF-09: o foco inicial não é roubado nem em StrictMode", () => {
+  test("RNF-09: na primeira carga o foco fica no início da página (o pular link é o primeiro Tab), mesmo com os efeitos executados duas vezes", async () => {
+    renderWithApi(
+      <StrictMode>
+        <MemoryRouter initialEntries={["/"]}>
+          <AppRoutes />
+        </MemoryRouter>
+      </StrictMode>,
+    );
+    expect(screen.getByRole("main")).not.toHaveFocus();
+    expect(screen.queryByText(/^Página:/)).not.toBeInTheDocument();
+    await userEvent.tab();
+    expect(screen.getByRole("link", { name: "Pular para o conteúdo" })).toHaveFocus();
   });
 });
 

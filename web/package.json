@@ -15,7 +15,9 @@
     "lint": "eslint .",
     "test": "vitest run",
     "check": "npm run typecheck && npm run lint && npm test && npm run build",
-    "api:types": "npx --yes openapi-typescript@7.13.0 ../docs/api/openapi.yaml -o src/api/schema.ts"
+    "api:types": "npx --yes openapi-typescript@7.13.0 ../docs/api/openapi.yaml -o src/api/schema.ts",
+    "e2e": "playwright test",
+    "e2e:install": "playwright install chromium"
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.7",
@@ -28,6 +30,8 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.65.1",
     "@testing-library/jest-dom": "^8.0.0",
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.13",
