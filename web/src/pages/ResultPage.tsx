@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { useSimulation } from "../api/hooks.ts";
 import type { SimulationRequest } from "../api/types.ts";
 import { usePageTitle } from "../app/usePageTitle.ts";
+import { ChartSection } from "../features/result/ChartSection.tsx";
 import { ComparisonTable } from "../features/result/ComparisonTable.tsx";
 import { RecommendationCard } from "../features/result/RecommendationCard.tsx";
 import { regimeStyle } from "../features/result/regimes.ts";
@@ -70,6 +71,7 @@ export function ResultPage() {
             </Callout>
           ))}
           {data.recomendacao ? <RecommendationCard recommendation={data.recomendacao} /> : null}
+          <ChartSection simulation={data} />
           <h2>Comparativo ano a ano</h2>
           <ComparisonTable simulation={data} />
           {data.avisos.length > 0 ? (
