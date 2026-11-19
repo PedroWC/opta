@@ -19,6 +19,16 @@ npm run mutation   # testes de mutação do núcleo (lento; limiar no ADR-0007)
 npm run dev        # http://localhost:3000/v1/health e POST /v1/simulacoes (contrato em docs/api/openapi.yaml)
 ```
 
+## Interface web
+
+A interface (React com Vite) fica em `web/`, com checagem própria (`npm run web:check`) e proxy `/v1` para a API em desenvolvimento:
+
+```bash
+npm run web:install   # uma vez
+npm run dev           # API em http://localhost:3000
+npm run web:dev       # interface em http://localhost:5173
+```
+
 ## Persistência
 
 `OPTA_DB=memory` (padrão), `sqlite` ou `oracle` escolhe o repositório das tabelas fiscais; veja [persistência](docs/arquitetura/persistencia.md). Exemplo: `OPTA_DB=sqlite npm run dev` (cria `opta.db`, que o git ignora).
