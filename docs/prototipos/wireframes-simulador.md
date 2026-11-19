@@ -178,7 +178,7 @@ Anotações:
 
 1. **Ajustar dados** volta a `/` com tudo preenchido (reuso do fragmento; evita redigitar, critério 3.3.7 da WCAG).
 2. **Copiar link** (US-07): copia a URL com fragmento; confirma em `status` ("Link copiado"). Texto avisa: "O link contém os números que você digitou; compartilhe com cuidado."
-3. **Motivo** vem de `recomendacao.motivo` (RN-08); o texto é da API, o front só o exibe e destaca o fator decisivo, se vier estruturado. Sem "garantimos"; a linguagem é condicional ("na sua simulação…").
+3. **Motivo:** o front monta a frase a partir dos campos estruturados (`segundo_colocado`, `economia_acumulada`, `fator_decisivo`), com os nomes dos regimes em português; o `motivo` textual da API (que cita o código do regime) fica como apoio para outros clientes. A linguagem é de simulação, sem garantia. Sem "garantimos"; a linguagem é condicional ("na sua simulação…").
 4. **Alternar gráfico e tabela:** a tabela abaixo já é o equivalente textual; a alternância existe para quem prefere só a tabela (e para leitor de tela). Padrão: gráfico visível e tabela logo depois.
 5. **Melhor regime** marcado por texto + ícone (não só cor ou negrito); linha "Total 2026–2033" cobre RN-08 (acumulado). Valor presente fica fora do MVP.
 6. **Memória de cálculo** (RF-06, US-04): acordeão por ano (`<details>`/Disclosure), abas por regime (padrão APG). Ao abrir um ano, o primeiro regime aparece com o melhor destacado. Toda linha traz a fonte legal.
