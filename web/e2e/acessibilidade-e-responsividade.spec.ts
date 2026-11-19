@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { expectNoViolations, simulateExample } from "./helpers";
+import { expectNoViolations, injectCss, simulateExample } from "./helpers";
 
 test.describe("RNF-09: axe em todas as telas, com layout e cores reais", () => {
   for (const [name, path] of [["simulador", "/"], ["premissas", "/premissas"], ["metodologia", "/sobre"], ["não encontrada", "/nao-existe"]] as const) {
@@ -24,7 +24,7 @@ test.describe("RNF-10: sem rolagem horizontal da página em 320 px", () => {
 
   /** A fonte do sistema muda de máquina para máquina (o CI no Linux é mais larga): força uma fonte larga para o teste não depender dela. */
   const useWideFont = (page: import("@playwright/test").Page): Promise<void> =>
-    page.addStyleTag({ content: "*{font-family:'Courier New',monospace !important}" }).then(() => undefined);
+    injectCss(page, "*{font-family:'Courier New',monospace !important}");
 
   const noHorizontalScroll = async (page: import("@playwright/test").Page): Promise<void> => {
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);

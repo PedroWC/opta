@@ -7,6 +7,18 @@ export async function expectNoViolations(page: Page): Promise<void> {
   expect(results.violations.map((violation) => `${violation.id}: ${violation.help} (${violation.nodes.length})`)).toEqual([]);
 }
 
+/**
+ * Injeta CSS de teste pela API de folhas de estilo construídas: diferente de `addStyleTag`, não é bloqueada pela
+ * CSP do build de produção (`style-src 'self'`), e a CSP continua ativa no resto da página.
+ */
+export async function injectCss(page: Page, css: string): Promise<void> {
+  await page.evaluate((text) => {
+    const sheet = new CSSStyleSheet();
+    sheet.replaceSync(text);
+    document.adoptedStyleSheets = [...document.adoptedStyleSheets, sheet];
+  }, css);
+}
+
 /** Abre o simulador, preenche o exemplo da US-01 e envia; termina na tela de resultado já carregada. */
 export async function simulateExample(page: Page): Promise<void> {
   await page.goto("/");
