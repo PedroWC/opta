@@ -70,7 +70,7 @@ describe("RF-04 e UC-02: premissas de transição por ano", () => {
       }),
     );
     renderAt("/premissas");
-    expect(await screen.findByText("Não foi possível carregar as premissas")).toBeInTheDocument();
+    expect(await screen.findByText("Não conseguimos calcular agora")).toBeInTheDocument();
     await userEvent.click(screen.getByRole("button", { name: "Tentar de novo" }));
     expect(await screen.findByRole("table")).toBeInTheDocument();
   });
