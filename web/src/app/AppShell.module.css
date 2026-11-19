@@ -60,3 +60,9 @@
 .legal {
   font-weight: var(--font-weight-semibold);
 }
+
+.footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+}

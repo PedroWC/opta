@@ -84,6 +84,8 @@ export function SimulatorForm({ onSubmit, submitting = false, serverProblems = [
   const activity = useActivity(CNAE_PATTERN.test(cnae.trim()) ? cnae.trim() : null);
   const rateLabel = activity.data?.natureza === "COMERCIO" ? "Alíquota de ICMS" : activity.data ? "Alíquota de ISS" : "Alíquota de ISS ou ICMS";
   const fatorR = approximateFatorR(revenue, payroll);
+  // Prevenção de erro (heurística 5): folha maior que a receita quase sempre é engano, mas não é proibido.
+  const payrollAboveRevenue = /^\d+\.\d{2}$/.test(revenue) && /^\d+\.\d{2}$/.test(payroll) && BigInt(payroll.replace(".", "")) > BigInt(revenue.replace(".", ""));
   const b2bNumber = /^\d{1,3}$/.test(b2b) && Number(b2b) <= 100 ? Number(b2b) : null;
 
   return (
@@ -173,6 +175,11 @@ export function SimulatorForm({ onSubmit, submitting = false, serverProblems = [
             />
           )}
         />
+        {payrollAboveRevenue ? (
+          <p role="status" className={styles["notice"]}>
+            ⚠ A folha informada é maior que a receita. Confira os valores; se estiverem certos, pode seguir.
+          </p>
+        ) : null}
         {fatorR !== null ? (
           <p role="status" aria-live="polite" className={styles["live"]}>
             Fator R aproximado: {fatorR}%. É a folha dividida pela receita; o cálculo oficial usa os últimos 12 meses.
@@ -189,7 +196,12 @@ export function SimulatorForm({ onSubmit, submitting = false, serverProblems = [
             <>
               <PercentField
                 label="Clientes empresas (B2B) *"
-                hint="Quanto da sua receita vem de outras empresas? Elas conseguem usar o crédito de CBS/IBS que você cobra."
+                hint={
+                  <>
+                    Quanto da sua receita vem de outras empresas? Elas conseguem usar o crédito de{" "}
+                    <abbr title="Contribuição sobre Bens e Serviços">CBS</abbr>/<abbr title="Imposto sobre Bens e Serviços">IBS</abbr> que você cobra.
+                  </>
+                }
                 name={field.name}
                 ref={field.ref}
                 value={field.value}
@@ -219,7 +231,12 @@ export function SimulatorForm({ onSubmit, submitting = false, serverProblems = [
           render={({ field }) => (
             <PercentField
               label="Compras que geram crédito (% da receita) *"
-              hint="Insumos e serviços que você compra de empresas e que geram crédito de CBS/IBS."
+              hint={
+                <>
+                  Insumos e serviços que você compra de empresas e que geram crédito de <abbr title="Contribuição sobre Bens e Serviços">CBS</abbr>/
+                  <abbr title="Imposto sobre Bens e Serviços">IBS</abbr>.
+                </>
+              }
               name={field.name}
               ref={field.ref}
               value={field.value}
@@ -239,7 +256,12 @@ export function SimulatorForm({ onSubmit, submitting = false, serverProblems = [
             <CheckboxGroup
               legend="4. O que comparar"
               name="regimes"
-              hint="Simples híbrido: você segue no Simples, mas recolhe CBS e IBS fora do guia (DAS)."
+              hint={
+                <>
+                  Simples híbrido: você segue no Simples, mas recolhe CBS e IBS fora do guia (
+                  <abbr title="Documento de Arrecadação do Simples Nacional">DAS</abbr>).
+                </>
+              }
               options={REGIME_OPTIONS}
               selected={regimes}
               onChange={field.onChange}
