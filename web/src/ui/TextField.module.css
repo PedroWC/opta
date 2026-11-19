@@ -39,8 +39,13 @@
   font-variant-numeric: tabular-nums;
   min-width: 0;
 }
+/* O anel de foco fica no contêiner arredondado (e não num retângulo dentro dele); continua com 3 px e deslocamento. */
+.control:focus-within {
+  outline: var(--focus-ring-width) solid var(--color-focus);
+  outline-offset: var(--focus-ring-offset);
+}
 .input:focus-visible {
-  outline-offset: 0;
+  outline: none;
 }
 .affix {
   color: var(--color-text-muted);
