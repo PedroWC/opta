@@ -27,6 +27,7 @@ Backend 100% orientado a objetos (ADR-0001), em camadas: `src/domain` ← `src/a
 - [Especificação](docs/especificacao.md)
 - [Requisitos](docs/requisitos/ers.md) · [Regras de negócio](docs/requisitos/regras-de-negocio.md) · [Rastreabilidade](docs/requisitos/rastreabilidade.md)
 - [Casos de uso](docs/produto/casos-de-uso.md) · [Histórias](docs/produto/historias-de-usuario.md) · [Mapa do site](docs/produto/mapa-do-site.md)
+- [Contrato da API (OpenAPI 3.1)](docs/api/openapi.yaml)
 - [ADRs](docs/arquitetura/adr/README.md) · [Glossário](docs/arquitetura/glossario.md)
 - [Backlog inicial](docs/processo/backlog-inicial.md) · [Nomenclatura](docs/processo/nomenclatura.md) · [Definição de pronto](docs/processo/definicao-de-pronto.md)
 - [Plano do front-end](docs/frontend/plano-frontend.md) · [Wireframes](docs/prototipos/wireframes-simulador.md) · [Backlog do front-end](docs/frontend/backlog-frontend.md) · [Registro de decisões](docs/processo/registro-de-decisoes.md)

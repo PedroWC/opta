@@ -106,6 +106,8 @@ Todo arquivo do backend declara **classes** (ou interfaces/tipos abstratos que c
 
 ## 5. Contrato da API (REST, OpenAPI 3.1, erros RFC 9457)
 
+> O contrato normativo está em [`docs/api/openapi.yaml`](api/openapi.yaml). O exemplo abaixo é o rascunho inicial; em caso de divergência, vale o arquivo OpenAPI (valores como texto decimal, percentuais inteiros, `fator_decisivo` e `regimes_indisponiveis`).
+
 `POST /v1/simulacoes`
 ```json
 {
