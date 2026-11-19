@@ -47,7 +47,7 @@ describe("Navegação e rotas", () => {
   test.each([
     ["/", "Qual regime compensa na Reforma Tributária?", "Simulador — Opta"],
     ["/resultado", "Resultado da simulação", "Resultado — Opta"],
-    ["/premissas", "Premissas de alíquotas", "Premissas — Opta"],
+    ["/premissas", "Premissas de cálculo", "Premissas — Opta"],
     ["/sobre", "Metodologia", "Metodologia — Opta"],
   ])("RNF-09: %s mostra o título da página e atualiza o título da aba", (path, heading, title) => {
     renderAt(path);
