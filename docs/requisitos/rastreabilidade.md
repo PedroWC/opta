@@ -4,7 +4,7 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 
 | Requisito/Regra | Caso de uso | História | Teste | Situação |
 |---|---|---|---|---|
-| RF-01 | UC-01 | US-01, US-06 | `test/presentation/simulation-api.test.ts`, `test/domain/das-strategy.test.ts`, `test/domain/lucro-presumido.test.ts` | Coberto na API (`POST /v1/simulacoes`); interface web pendente (#12) |
+| RF-01 | UC-01 | US-01, US-06 | `test/presentation/simulation-api.test.ts`, `web/src/features/simulator/simulator.test.tsx`, `test/domain/das-strategy.test.ts`, `test/domain/lucro-presumido.test.ts` | Coberto na API (`POST /v1/simulacoes`) e no formulário da interface (`web/src/features/simulator`); resultado na interface pendente (#23) |
 | RF-02 | UC-01 | US-01 | `test/presentation/simulation-api.test.ts`, `test/application/simulate-regimes-use-case.test.ts`, `test/domain/das-strategy.test.ts` | Coberto (três regimes nos 8 anos, expostos pela API) |
 | RF-03 | UC-01 | US-02 | `test/presentation/simulation-api.test.ts`, `test/domain/regime-comparison.test.ts`, `test/application/compare-regimes-use-case.test.ts` | Coberto (recomendação na API) |
 | RF-04 | UC-02 | US-03, US-10 | `test/presentation/reference-api.test.ts`, `test/contract/api-conforms-to-openapi.test.ts` | Coberto na API (`GET /v1/premissas/aliquotas`); tela pendente (#12) |
@@ -23,7 +23,7 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RN-06 | UC-01 | US-02 | `test/domain/tax-regime.test.ts` (herança), `test/domain/simples-hibrido.test.ts` | Coberto (golden 2026, 2027, 2029 e 2033) |
 | RN-07 | UC-01 | US-01 | `test/domain/lucro-presumido.test.ts` | Coberto (golden de serviços e comércio; presunções ⚠️) |
 | RN-08 | UC-01 | US-02 | `test/domain/regime-comparison.test.ts`, `test/application/compare-regimes-use-case.test.ts` | Coberto (golden dos três regimes em 8 anos) |
-| RN-09 | UC-01 | US-01 | `test/domain/company-profile.test.ts` | Coberto |
+| RN-09 | UC-01 | US-01 | `test/domain/company-profile.test.ts`, `web/src/features/simulator/simulator.test.tsx` | Coberto |
 | RN-10 | UC-01 | US-02 | `test/domain/simples-hibrido.test.ts` | Coberto (crédito embutido x integral; ⚠️) |
 | RNF-01 | — | — | `eslint.config.js` e `.dependency-cruiser.cjs` (lint) | Coberto |
 | RNF-05 | — | — | `test/infrastructure/tax-rate-table-repository.contract.test.ts`, `test/infrastructure/sql-vigencia.test.ts`, `test/infrastructure/oracle-adapter.test.ts` | Coberto em memória e SQLite; Oracle só com conexão falsa (integração real pendente) |
