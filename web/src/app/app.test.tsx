@@ -1,12 +1,13 @@
-import { render, screen, within } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, test } from "vitest";
 import { expectNoA11yViolations } from "../test-utils/axe.ts";
+import { renderWithApi } from "../test-utils/render.tsx";
 import { AppRoutes } from "./AppRoutes.tsx";
 
 const renderAt = (path: string, version?: string) =>
-  render(
+  renderWithApi(
     <MemoryRouter initialEntries={[path]}>
       <AppRoutes assumptionsVersion={version} />
     </MemoryRouter>,

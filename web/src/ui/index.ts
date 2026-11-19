@@ -1,6 +1,7 @@
 export { Badge } from "./Badge.tsx";
 export { Button } from "./Button.tsx";
 export { Callout } from "./Callout.tsx";
+export { Combobox, type ComboboxOption } from "./Combobox.tsx";
 export { CheckboxGroup } from "./CheckboxGroup.tsx";
 export { DefinitionList } from "./DefinitionList.tsx";
 export { Disclosure } from "./Disclosure.tsx";

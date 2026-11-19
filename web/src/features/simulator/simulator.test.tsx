@@ -1,15 +1,16 @@
-import { render, screen, within } from "@testing-library/react";
+import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, test, vi } from "vitest";
 import { parsePercentInput } from "../../lib/percent.ts";
 import { expectNoA11yViolations } from "../../test-utils/axe.ts";
+import { renderWithApi } from "../../test-utils/render.tsx";
 import { approximateFatorR } from "./fatorR.ts";
 import { EXAMPLE_VALUES, fieldOfPointer, simulatorSchema, toRequest } from "./schema.ts";
 import { SimulatorForm } from "./SimulatorForm.tsx";
 
 const setup = (props: Partial<React.ComponentProps<typeof SimulatorForm>> = {}) => {
   const onSubmit = vi.fn();
-  const view = render(<SimulatorForm onSubmit={onSubmit} {...props} />);
+  const view = renderWithApi(<SimulatorForm onSubmit={onSubmit} {...props} />);
   return { onSubmit, user: userEvent.setup(), ...view };
 };
 

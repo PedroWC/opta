@@ -15,6 +15,8 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       "@typescript-eslint/no-explicit-any": "error",
+      // listbox/option do combobox (APG): a lista é controlada pelo foco do campo, não por foco nos itens.
+      "jsx-a11y/no-noninteractive-element-to-interactive-role": ["error", { ul: ["listbox"], li: ["option"] }],
       // Painel de aba e região rolável precisam ser focáveis por teclado (APG; WCAG 2.1.1).
       "jsx-a11y/no-noninteractive-tabindex": ["error", { roles: ["tabpanel", "region"], tags: [] }],
     },
