@@ -2,7 +2,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import type { FieldProblem, SimulationRequest } from "../../api/types.ts";
+import { useActivity } from "../../api/hooks.ts";
 import { Button, CheckboxGroup, MoneyField, PercentField, Select, TextField } from "../../ui/index.ts";
+import { ActivityCard } from "./ActivityCard.tsx";
+import { CNAE_PATTERN, CnaeField } from "./CnaeField.tsx";
 import { ErrorSummary, type SummaryItem } from "./ErrorSummary.tsx";
 import { approximateFatorR } from "./fatorR.ts";
 import {
@@ -75,7 +78,9 @@ export function SimulatorForm({ onSubmit, submitting = false, serverProblems = [
     formRef.current?.querySelector<HTMLElement>(`[name="${field}"]`)?.focus();
   };
 
-  const [revenue, payroll, b2b, regimes] = useWatch({ control, name: ["revenue", "payroll", "b2b", "regimes"] });
+  const [cnae, revenue, payroll, b2b, regimes] = useWatch({ control, name: ["cnae", "revenue", "payroll", "b2b", "regimes"] });
+  const activity = useActivity(CNAE_PATTERN.test(cnae.trim()) ? cnae.trim() : null);
+  const rateLabel = activity.data?.natureza === "COMERCIO" ? "Alíquota de ICMS" : activity.data ? "Alíquota de ISS" : "Alíquota de ISS ou ICMS";
   const fatorR = approximateFatorR(revenue, payroll);
   const b2bNumber = /^\d{1,3}$/.test(b2b) && Number(b2b) <= 100 ? Number(b2b) : null;
 
@@ -99,14 +104,21 @@ export function SimulatorForm({ onSubmit, submitting = false, serverProblems = [
 
       <fieldset className={styles["section"]}>
         <legend>1. Sua empresa</legend>
-        <TextField
-          label="Atividade (CNAE) *"
-          hint="Formato 0000-0/00, por exemplo 6201-5/01."
-          inputMode="numeric"
-          autoComplete="off"
-          error={errors.cnae?.message}
-          {...register("cnae")}
+        <Controller
+          control={control}
+          name="cnae"
+          render={({ field }) => (
+            <CnaeField
+              name={field.name}
+              ref={field.ref}
+              value={field.value}
+              onValueChange={field.onChange}
+              onBlur={field.onBlur}
+              error={errors.cnae?.message}
+            />
+          )}
         />
+        {activity.data ? <ActivityCard activity={activity.data} /> : null}
         <Select
           label="UF *"
           placeholder="Escolha o estado"
@@ -115,7 +127,7 @@ export function SimulatorForm({ onSubmit, submitting = false, serverProblems = [
           {...register("uf")}
         />
         <TextField
-          label="Alíquota de ISS ou ICMS *"
+          label={`${rateLabel} *`}
           hint="ISS para serviços e ICMS para comércio; o ISS fica entre 2% e 5%."
           inputMode="decimal"
           suffix="%"
