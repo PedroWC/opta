@@ -4,7 +4,8 @@ import { MemoryRouter } from "react-router-dom";
 import { describe, expect, test } from "vitest";
 import { AppRoutes } from "../../app/AppRoutes.tsx";
 import { expectNoA11yViolations } from "../../test-utils/axe.ts";
-import { requestFixture, simulationFixture } from "../../test-utils/fixtures.ts";
+import { simulationFixture } from "../../test-utils/fixtures.ts";
+import { resultLocation } from "../../test-utils/routes.ts";
 import { renderWithApi } from "../../test-utils/render.tsx";
 import { chartData, regimesOf } from "./chartData.ts";
 import CostChart from "./CostChart.tsx";
@@ -64,7 +65,7 @@ describe("US-09 e RNF-09: o gráfico não depende só de cor", () => {
 describe("RF-08: gráfico e tabela na tela de resultado", () => {
   const renderResult = () =>
     renderWithApi(
-      <MemoryRouter initialEntries={[{ pathname: "/resultado", state: { request: requestFixture } }]}>
+      <MemoryRouter initialEntries={[resultLocation()]}>
         <AppRoutes />
       </MemoryRouter>,
     );

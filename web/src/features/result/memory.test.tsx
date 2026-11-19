@@ -4,14 +4,14 @@ import { MemoryRouter } from "react-router-dom";
 import { describe, expect, test, vi } from "vitest";
 import { AppRoutes } from "../../app/AppRoutes.tsx";
 import { expectNoA11yViolations } from "../../test-utils/axe.ts";
-import { requestFixture } from "../../test-utils/fixtures.ts";
+import { resultLocation } from "../../test-utils/routes.ts";
 import { mockScreen } from "../../test-utils/media.ts";
 import { renderWithApi } from "../../test-utils/render.tsx";
 import { taxName } from "./taxNames.ts";
 
 const renderResult = () =>
   renderWithApi(
-    <MemoryRouter initialEntries={[{ pathname: "/resultado", state: { request: requestFixture } }]}>
+    <MemoryRouter initialEntries={[resultLocation()]}>
       <AppRoutes />
     </MemoryRouter>,
   );
