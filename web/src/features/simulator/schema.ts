@@ -81,3 +81,18 @@ const POINTER_TO_FIELD: Readonly<Record<string, keyof SimulatorValues>> = {
 export function fieldOfPointer(pointer: string): keyof SimulatorValues | null {
   return POINTER_TO_FIELD[pointer] ?? (pointer.startsWith("/regimes/") ? "regimes" : null);
 }
+
+/** Reabre o formulário com os dados de uma simulação ("Ajustar dados"). A alíquota volta a no máximo 2 casas. */
+export function fromRequest(request: SimulationRequest): SimulatorValues {
+  const rate = (request.aliquota_icms_iss ?? "5.0000").replace(/\.(\d\d)\d\d$/, ",$1");
+  return {
+    cnae: request.cnae,
+    uf: request.uf,
+    issRate: rate,
+    revenue: request.receita_bruta_anual,
+    payroll: request.folha_anual,
+    b2b: String(request.perfil_clientes.b2b_pct),
+    purchases: String(request.compras_creditaveis_pct),
+    regimes: [...(request.regimes ?? ["SIMPLES", "SIMPLES_HIBRIDO", "LUCRO_PRESUMIDO"])],
+  };
+}
