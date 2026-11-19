@@ -1,9 +1,11 @@
-import type { InputHTMLAttributes, ReactNode } from "react";
+import type { InputHTMLAttributes, ReactNode, Ref } from "react";
 import { cx } from "../lib/ids.ts";
 import { describedBy, useFieldIds } from "./Field.tsx";
 import styles from "./TextField.module.css";
 
 export type TextFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, "id"> & {
+  /** Ref do `input` (React 19 aceita ref como propriedade); usado pelo React Hook Form para focar o campo. */
+  ref?: Ref<HTMLInputElement>;
   label: string;
   hint?: ReactNode;
   /** Mensagem de erro; quando presente, o campo fica inválido e o texto é lido junto do rótulo. */

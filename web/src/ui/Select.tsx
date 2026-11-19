@@ -1,8 +1,9 @@
-import type { ReactNode, SelectHTMLAttributes } from "react";
+import type { ReactNode, Ref, SelectHTMLAttributes } from "react";
 import { describedBy, useFieldIds } from "./Field.tsx";
 import styles from "./TextField.module.css";
 
 type Props = Omit<SelectHTMLAttributes<HTMLSelectElement>, "id"> & {
+  ref?: Ref<HTMLSelectElement>;
   label: string;
   hint?: ReactNode;
   error?: ReactNode;
