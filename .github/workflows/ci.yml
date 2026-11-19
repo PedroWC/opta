@@ -56,3 +56,25 @@ jobs:
       - name: Testes E2E contra a API real
         run: npm run e2e
         working-directory: web
+
+  e2e-producao:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            web/package-lock.json
+      - run: npm ci
+      - run: npm ci --prefix web
+      - name: Instala o Chromium do Playwright
+        run: npx playwright install --with-deps chromium
+        working-directory: web
+      - name: E2E no build estático servido pela API (CSP ativa e orçamento de desempenho)
+        run: npm run e2e
+        working-directory: web
+        env:
+          E2E_PROD: "1"
