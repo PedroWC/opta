@@ -1,6 +1,8 @@
 # Backlog inicial (issues)
 
-Estas são as issues criadas em `PedroWC/opta` (numeração conferida). Cada uma lista a branch sugerida (`<tipo>/<issue>-<slug>`), os IDs e os critérios de aceite. Fases conforme [especificação](../especificacao.md), seção 9.
+Estas são as issues criadas em `PedroWC/opta` (numeração conferida).
+
+**Situação (2026-11-19):** #1 a #13 e #15 entregues; a interface foi entregue pelas issues #16 a #29 e #31 (a #12 é o épico). **Em aberto:** #14 (deploy e demonstração pública), #30 (leitor de tela real e teste com pessoas) e as issues de acompanhamento #59 (Oracle real) e #60 (conferência das tabelas na fonte legal). Cada uma lista a branch sugerida (`<tipo>/<issue>-<slug>`), os IDs e os critérios de aceite. Fases conforme [especificação](../especificacao.md), seção 9.
 
 | # | Branch sugerida | Título | Fase |
 |---|---|---|---|

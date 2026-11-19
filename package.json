@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Simulador de regimes tributários na Reforma Tributária do Consumo (2026–2033).",
   "engines": {
-    "node": ">=22"
+    "node": ">=22.13"
   },
   "scripts": {
     "dev": "tsx watch src/main.ts",
