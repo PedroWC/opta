@@ -62,7 +62,12 @@ export class TaxRate {
     return new TaxRate((this.micro * numerator) / denominator);
   }
 
+  /** Percentual com 4 casas, sem o sinal (formato do contrato da API): "8.0800". */
+  toPercentageText(): string {
+    return `${this.micro / 10_000n}.${(this.micro % 10_000n).toString().padStart(4, "0")}`;
+  }
+
   toString(): string {
-    return `${this.micro / 10_000n}.${(this.micro % 10_000n).toString().padStart(4, "0")}%`;
+    return `${this.toPercentageText()}%`;
   }
 }

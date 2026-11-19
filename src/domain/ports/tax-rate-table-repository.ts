@@ -28,5 +28,7 @@ export interface TaxRateTableRepository {
   presumptionFor(cnae: string): Promise<Presumption>;
   /** Parâmetros do Lucro Presumido vigentes no ano. */
   lucroPresumidoParametersFor(taxYear: TaxYear): Promise<LucroPresumidoParameters>;
+  /** Identificador do conjunto de premissas em uso, exibido ao usuário (ex.: "2026.1"). */
+  assumptionsVersion(): Promise<string>;
   simplesActivityFor(cnae: string): Promise<SimplesActivity>;
 }

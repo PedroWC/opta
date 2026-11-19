@@ -62,6 +62,10 @@ export class InMemoryTaxRateTableRepository implements TaxRateTableRepository {
     throw new UnsupportedActivityError(cnae);
   }
 
+  async assumptionsVersion(): Promise<string> {
+    return "2026.1";
+  }
+
   /** Presunção: serviços 32%/32%; comércio 8% e 12% (⚠️ conferir; sem a majoração da LC 224/2025). */
   async presumptionFor(cnae: string): Promise<Presumption> {
     if (InMemoryTaxRateTableRepository.SERVICE_CNAES.includes(cnae)) {

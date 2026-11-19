@@ -353,7 +353,8 @@ components:
           pattern: '^SIM-\d{3}$'
           description: |
             SIM-001 entrada inválida; SIM-002 parâmetros sem vigência para o ano; SIM-003 receita acima do teto
-            do Simples; SIM-004 atividade fora do escopo; SIM-005 recurso não encontrado; SIM-500 erro interno.
+            do Simples; SIM-004 atividade fora do escopo; SIM-005 recurso não encontrado; SIM-006 requisição malformada
+            (corpo ausente, JSON inválido ou tipo de conteúdo diferente de application/json); SIM-500 erro interno.
         errors:
           type: array
           description: Erros por campo, presentes nos 422 de validação.

@@ -21,6 +21,7 @@ Documentação em português; identificadores de código em inglês. Nomes próp
 | DAS híbrido | `HybridDasStrategy` | DAS puro sem as parcelas de CBS/IBS |
 | Crédito ao cliente B2B | `CustomerCreditPolicy` | `EmbeddedCustomerCredit` (puro) e `FullCustomerCredit` (híbrido) |
 | Comparação / recomendação | `RegimeComparison`, `Recommendation`, `DecisiveFactor` | Menor carga no ano e acumulada; fator decisivo por categoria |
+| API de simulações | `SimulationController`, `SimulationRequestValidator`, `SimulationResponseMapper` | Borda HTTP; `RunSimulationUseCase` na aplicação |
 | DAS (estratégia) | `DasStrategy` | Calcula e reparte o DAS do Simples |
 | Faixa / tabela de anexo | `SimplesBracket`, `SimplesAnnexTable` | Teto de RBT12, alíquota nominal, parcela a deduzir |
 | Partilha do DAS | `DasPartition` | Percentual de cada parcela; soma 100% |

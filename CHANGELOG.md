@@ -14,4 +14,5 @@ Formato [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamen
 - Simples híbrido (#7): `HybridDasStrategy` (DAS sem as parcelas de CBS/IBS) e CBS/IBS no regime regular (RN-06); `EmbeddedCustomerCredit` e `FullCustomerCredit` demonstram o crédito ao cliente B2B (RN-10).
 - Comparador e recomendação (#8): `RegimeComparison`, `Recommendation` e `DecisiveFactor` (menor carga no ano e acumulada, economia sobre o segundo colocado e fator decisivo por categoria) e `CompareRegimesUseCase` (RN-08, RF-03).
 - Contrato OpenAPI 3.1 da API v1 (#9) em `docs/api/openapi.yaml`, com os pedidos do front-end (DEC-14), validado por teste de contrato.
+- API de simulações (#10): `POST /v1/simulacoes` com validação (zod encapsulado em classe), erros em `application/problem+json` com erros por campo, regimes indisponíveis sem derrubar os demais e resposta validada contra o contrato OpenAPI (RF-01 a RF-03, RF-06, RNF-07, RN-09).
 - Planejamento do front-end: plano, wireframes, design system, acessibilidade, pesquisa com usuários, backlog (FE-01 a FE-20), ADR-0006 e registro de decisões; novos RF-09 a RF-11, RNF-09 a RNF-12 e US-05 a US-10.
