@@ -11,7 +11,7 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RF-05 | UC-03 | US-03, US-10 | `test/presentation/reference-api.test.ts`, `test/contract/api-conforms-to-openapi.test.ts`, `web/src/features/simulator/cnae.test.tsx`, `web/src/ui/combobox.test.tsx` | Coberto na API (`GET /v1/atividades`) e no combobox de CNAE do simulador (teclado, busca com espera, cartão da atividade); consulta de atividade na página de premissas, com atalho para o simulador (`web/src/pages/assumptions.test.tsx`) |
 | RF-06 | UC-01 | US-04 | `test/presentation/simulation-api.test.ts`, `test/domain/tax-regime.test.ts`, `web/src/features/result/memory.test.tsx` | Coberto na API e na interface (acordeão por ano, abas por regime, fonte legal por linha, partilha como detalhe) |
 | RF-07 | — | — | `test/health.test.ts`, `test/presentation/reference-api.test.ts` | Coberto (`/v1/health` e `/v1/versao`) |
-| RF-08 | UC-01 | US-01, US-08 | `web/src/features/result/chart.test.tsx`, `web/src/pages/result.test.tsx`, `web/src/features/result/memory.test.tsx` | Parcial (formulário, tabela e gráfico por ano na interface; memória de cálculo na interface; E2E pendente: #29) |
+| RF-08 | UC-01 | US-01, US-08 | `web/src/features/result/chart.test.tsx`, `web/src/pages/result.test.tsx`, `web/src/features/result/memory.test.tsx`, `web/e2e/fluxos.spec.ts` | Parcial (formulário, tabela e gráfico por ano na interface; memória de cálculo na interface; E2E: `web/e2e/fluxos.spec.ts`) |
 | RF-09 | UC-01 | US-07 | `web/src/features/share/share.test.tsx` | Coberto (codec `#v1.…`, "Copiar link", "Ajustar dados" e links inválidos); E2E pendente (#29) |
 | RF-10 | UC-01 | US-05 | — | Pendente |
 | RF-11 | — | US-10 | — | Pendente |
@@ -32,7 +32,7 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RNF-03 | — | — | `test/contract/openapi-contract.test.ts` | Coberto (contrato válido; implementação nas issues #10 e #11) |
 | RNF-04 | — | — | `vitest.config.ts` (limiar de cobertura) | Coberto |
 | RNF-08 | — | — | `.dependency-cruiser.cjs` | Coberto |
-| RNF-09 | — | US-09 | `web/eslint.config.js` (jsx-a11y), `web/src/App.test.tsx`, `web/src/styles/tokens.test.ts`, `web/src/ui/ui.test.tsx`, `web/src/app/app.test.tsx` | Parcial (lint, landmarks, contraste AA, axe em todas as telas, teclado, pular link e anúncio de rota; testes manuais e E2E nas issues #29 e #30) |
+| RNF-09 | — | US-09 | `web/eslint.config.js` (jsx-a11y), `web/src/App.test.tsx`, `web/src/styles/tokens.test.ts`, `web/src/ui/ui.test.tsx`, `web/src/app/app.test.tsx`, `web/e2e/acessibilidade-e-responsividade.spec.ts` | Parcial (lint, landmarks, contraste AA, axe em todas as telas, teclado, pular link e anúncio de rota; E2E com axe real e teclado em `web/e2e`; testes manuais e auditoria na #30) |
 | RNF-10 | — | US-08 | — (viewports no E2E, previsto no FE-14) | Pendente |
 | RNF-11 | — | — | — (Lighthouse, previsto no FE-16) | Pendente |
 | RNF-12 | — | US-07 | `web/src/features/share/share.test.tsx`, `web/src/api/client.test.ts` | Parcial (dados só no fragmento e no corpo do POST; sem analytics; cabeçalhos e medição na #31) |

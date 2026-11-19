@@ -10,3 +10,5 @@ coverage/
 .idea/
 reports/
 .stryker-tmp/
+test-results/
+playwright-report/

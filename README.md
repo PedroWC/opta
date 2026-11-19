@@ -29,6 +29,14 @@ npm run dev           # API em http://localhost:3000
 npm run web:dev       # interface em http://localhost:5173
 ```
 
+Testes ponta a ponta (Playwright, contra a API real, em desktop e celular, com axe e checagem de rolagem horizontal em 320 px):
+
+```bash
+npm run web:install
+npx --prefix web playwright install chromium   # uma vez
+npm run e2e --prefix web
+```
+
 ## Persistência
 
 `OPTA_DB=memory` (padrão), `sqlite` ou `oracle` escolhe o repositório das tabelas fiscais; veja [persistência](docs/arquitetura/persistencia.md). Exemplo: `OPTA_DB=sqlite npm run dev` (cria `opta.db`, que o git ignora).
