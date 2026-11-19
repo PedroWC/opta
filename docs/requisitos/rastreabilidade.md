@@ -7,10 +7,10 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RF-01 | UC-01 | US-01, US-06 | `test/presentation/simulation-api.test.ts`, `test/domain/das-strategy.test.ts`, `test/domain/lucro-presumido.test.ts` | Coberto na API (`POST /v1/simulacoes`); interface web pendente (#12) |
 | RF-02 | UC-01 | US-01 | `test/presentation/simulation-api.test.ts`, `test/application/simulate-regimes-use-case.test.ts`, `test/domain/das-strategy.test.ts` | Coberto (três regimes nos 8 anos, expostos pela API) |
 | RF-03 | UC-01 | US-02 | `test/presentation/simulation-api.test.ts`, `test/domain/regime-comparison.test.ts`, `test/application/compare-regimes-use-case.test.ts` | Coberto (recomendação na API) |
-| RF-04 | UC-02 | US-03, US-10 | — | Pendente |
-| RF-05 | UC-03 | US-03, US-10 | — | Pendente |
+| RF-04 | UC-02 | US-03, US-10 | `test/presentation/reference-api.test.ts`, `test/contract/api-conforms-to-openapi.test.ts` | Coberto na API (`GET /v1/premissas/aliquotas`); tela pendente (#12) |
+| RF-05 | UC-03 | US-03, US-10 | `test/presentation/reference-api.test.ts`, `test/contract/api-conforms-to-openapi.test.ts` | Coberto na API (`GET /v1/atividades`, catálogo provisório; tabela na #3) |
 | RF-06 | UC-01 | US-04 | `test/presentation/simulation-api.test.ts`, `test/domain/tax-regime.test.ts` | Coberto na API (linhas com base, alíquota, valor, fonte e detalhes) |
-| RF-07 | — | — | `test/health.test.ts` | Coberto |
+| RF-07 | — | — | `test/health.test.ts`, `test/presentation/reference-api.test.ts` | Coberto (`/v1/health` e `/v1/versao`) |
 | RF-08 | UC-01 | US-01, US-08 | — | Pendente |
 | RF-09 | UC-01 | US-07 | — | Pendente (plano em `docs/frontend/`) |
 | RF-10 | UC-01 | US-05 | — | Pendente |
