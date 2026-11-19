@@ -9,5 +9,7 @@ export class TaxLine {
     readonly rate: TaxRate,
     readonly amount: Money,
     readonly source: string,
+    /** Detalhamento opcional (ex.: partilha do DAS); não entra na soma da carga total. */
+    readonly breakdown: readonly TaxLine[] = [],
   ) {}
 }

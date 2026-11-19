@@ -19,6 +19,41 @@ export class TaxRate {
     return new TaxRate(0n);
   }
 
+  /** Razão num/den como alíquota de 4 casas (meio para cima). Denominador zero resulta em 0%. */
+  static fromRatio(numerator: bigint, denominator: bigint): TaxRate {
+    if (denominator === 0n) return TaxRate.zero();
+    return new TaxRate(TaxRate.divideRounded(numerator * TaxRate.SCALE, denominator));
+  }
+
+  /**
+   * Alíquota efetiva do Simples: (receita x nominal - parcela a deduzir) / receita (RN-04).
+   * Calculada com inteiros, sem arredondar o numerador; nunca negativa.
+   */
+  static effective(nominal: TaxRate, revenue: Money, deduction: Money): TaxRate {
+    const revenueCents = revenue.inCents();
+    if (revenueCents === 0n) return TaxRate.zero();
+    const numerator = revenueCents * nominal.micro - deduction.inCents() * TaxRate.SCALE;
+    if (numerator <= 0n) return TaxRate.zero();
+    return new TaxRate(TaxRate.divideRounded(numerator, revenueCents));
+  }
+
+  add(other: TaxRate): TaxRate {
+    return new TaxRate(this.micro + other.micro);
+  }
+
+  equals(other: TaxRate): boolean {
+    return this.micro === other.micro;
+  }
+
+  greaterThan(other: TaxRate): boolean {
+    return this.micro > other.micro;
+  }
+
+  /** Divisão inteira com arredondamento meio para cima (valores não negativos). */
+  private static divideRounded(numerator: bigint, denominator: bigint): bigint {
+    return (numerator * 2n + denominator) / (denominator * 2n);
+  }
+
   applyTo(base: Money): Money {
     return base.multiplyByRatio(this.micro, TaxRate.SCALE);
   }
