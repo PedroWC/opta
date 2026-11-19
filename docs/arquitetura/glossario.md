@@ -16,6 +16,8 @@ Documentação em português; identificadores de código em inglês. Nomes próp
 | Tabela de alíquotas | `TaxRateTableRepository` | Porta; vigência por ano |
 | Vigência | `EffectivePeriod…` | Erro quando ausente |
 | CBS / IBS / ICMS / ISS / PIS-Cofins (estratégias) | `CbsStrategy`, `IbsStrategy`, `IcmsStrategy`, `IssStrategy`, `PisCofinsStrategy` | CBS, IBS e ICMS herdam de `NonCumulativeConsumptionTax` (débito menos crédito) |
+| IRPJ / CSLL / CPP (estratégias) | `IrpjStrategy`, `CsllStrategy`, `CppStrategy` | Lucro Presumido; parâmetros por vigência |
+| Presunção / natureza da atividade | `Presumption`, `ActivityKind` | Serviço (ISS) ou comércio (ICMS) |
 | DAS (estratégia) | `DasStrategy` | Calcula e reparte o DAS do Simples |
 | Faixa / tabela de anexo | `SimplesBracket`, `SimplesAnnexTable` | Teto de RBT12, alíquota nominal, parcela a deduzir |
 | Partilha do DAS | `DasPartition` | Percentual de cada parcela; soma 100% |

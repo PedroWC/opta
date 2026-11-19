@@ -6,6 +6,9 @@ import type { SimplesActivity } from "../domain/simples/simples-activity.ts";
 import type { SimplesAnnex } from "../domain/simples/simples-annex.ts";
 import type { SimplesAnnexTable } from "../domain/simples/simples-annex-table.ts";
 import { SimplesReferenceTables } from "./simples-reference-tables.ts";
+import { LucroPresumidoParameters } from "../domain/presumption/lucro-presumido-parameters.ts";
+import { Presumption } from "../domain/presumption/presumption.ts";
+import { Money } from "../domain/shared/money.ts";
 import { TaxRate } from "../domain/shared/tax-rate.ts";
 import type { TaxYear } from "../domain/shared/tax-year.ts";
 
@@ -39,6 +42,12 @@ export class InMemoryTaxRateTableRepository implements TaxRateTableRepository {
   ];
   private static readonly ANNEX_III_CNAES: readonly string[] = ["8630-5/04", "9602-5/01", "6920-6/01"];
 
+  private static readonly SERVICE_CNAES: readonly string[] = [
+    ...InMemoryTaxRateTableRepository.PAYROLL_FACTOR_CNAES,
+    ...InMemoryTaxRateTableRepository.ANNEX_III_CNAES,
+  ];
+  private static readonly COMMERCE_CNAES: readonly string[] = ["4711-3/02", "4781-4/00", "4761-0/03"];
+
   private readonly simplesTables = new SimplesReferenceTables();
 
   async simplesAnnexTableFor(annex: SimplesAnnex): Promise<SimplesAnnexTable> {
@@ -51,6 +60,27 @@ export class InMemoryTaxRateTableRepository implements TaxRateTableRepository {
     if (InMemoryTaxRateTableRepository.PAYROLL_FACTOR_CNAES.includes(cnae)) return new PayrollFactorActivity();
     if (InMemoryTaxRateTableRepository.ANNEX_III_CNAES.includes(cnae)) return new FixedAnnexActivity("III");
     throw new UnsupportedActivityError(cnae);
+  }
+
+  /** Presunção: serviços 32%/32%; comércio 8% e 12% (⚠️ conferir; sem a majoração da LC 224/2025). */
+  async presumptionFor(cnae: string): Promise<Presumption> {
+    if (InMemoryTaxRateTableRepository.SERVICE_CNAES.includes(cnae)) {
+      return new Presumption("SERVICE", TaxRate.fromPercentage("32"), TaxRate.fromPercentage("32"));
+    }
+    if (InMemoryTaxRateTableRepository.COMMERCE_CNAES.includes(cnae)) {
+      return new Presumption("COMMERCE", TaxRate.fromPercentage("8"), TaxRate.fromPercentage("12"));
+    }
+    throw new UnsupportedActivityError(cnae);
+  }
+
+  async lucroPresumidoParametersFor(): Promise<LucroPresumidoParameters> {
+    return new LucroPresumidoParameters(
+      TaxRate.fromPercentage("15"),
+      TaxRate.fromPercentage("10"),
+      Money.fromText("20000"),
+      TaxRate.fromPercentage("9"),
+      TaxRate.fromPercentage("20"),
+    );
   }
 
   /** PIS 0,65% + Cofins 3% (⚠️ conferir). Extinto a partir de 2027 pela transição. */

@@ -3,7 +3,6 @@ import { AnnualResult } from "../../src/domain/regimes/annual-result.ts";
 import { TaxRegime } from "../../src/domain/regimes/tax-regime.ts";
 import { SimplesNacional } from "../../src/domain/regimes/simples-nacional.ts";
 import { SimplesHibrido } from "../../src/domain/regimes/simples-hibrido.ts";
-import { LucroPresumido } from "../../src/domain/regimes/lucro-presumido.ts";
 import { NotImplementedYetError } from "../../src/domain/errors/not-implemented-yet-error.ts";
 import { CompanyProfile } from "../../src/domain/shared/company-profile.ts";
 import { Money } from "../../src/domain/shared/money.ts";
@@ -68,9 +67,9 @@ describe("RN-06: o Simples híbrido é um Simples", () => {
   });
 });
 
-describe("Esqueleto: regimes ainda sem cálculo sinalizam pendência (backlog #6 e #7)", () => {
-  test.each([new SimplesHibrido(), new LucroPresumido()])(
-    "RN-06/RN-07: %s falha de forma explícita até ser implementado",
+describe("Esqueleto: regimes ainda sem cálculo sinalizam pendência (backlog #7)", () => {
+  test.each([new SimplesHibrido()])(
+    "RN-06: %s falha de forma explícita até ser implementado",
     async (regime) => {
       await expect(regime.simulate(contextFor(2026))).rejects.toBeInstanceOf(NotImplementedYetError);
     },
