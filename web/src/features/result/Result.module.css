@@ -83,3 +83,8 @@
     display: none;
   }
 }
+.detail {
+  padding-left: var(--space-6);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-muted);
+}
