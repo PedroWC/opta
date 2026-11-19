@@ -6,7 +6,7 @@
 3. **Premissas** — alíquotas de transição por ano (UC-02) e consulta de CNAE (UC-03).
 4. **Metodologia** (`/sobre`) — fontes legais, limites do MVP e aviso legal (RF-11).
 
-Rotas do front-end: `/`, `/resultado#<dados>` (estado no fragmento da URL, RF-09), `/premissas`, `/sobre`. Detalhes em [plano do front-end](../frontend/plano-frontend.md) e [wireframes](../prototipos/wireframes-simulador.md).
+Rotas do front-end: `/`, `/resultado#v1.<dados>` (estado no fragmento da URL, versionado e em base64url, RF-09), `/#v1.<dados>` (formulário reaberto por "Ajustar dados" ou por um link), `/premissas`, `/sobre`. Detalhes em [plano do front-end](../frontend/plano-frontend.md) e [wireframes](../prototipos/wireframes-simulador.md).
 
 ## API `/v1` (backend)
 | Método e rota | Caso de uso | Situação |
