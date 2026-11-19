@@ -6,7 +6,7 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 |---|---|---|---|---|
 | RF-01 | UC-01 | US-01, US-06 | `test/domain/das-strategy.test.ts`, `test/domain/lucro-presumido.test.ts` | Parcial (três regimes; comparador pendente) |
 | RF-02 | UC-01 | US-01 | `test/application/simulate-regimes-use-case.test.ts`, `test/domain/das-strategy.test.ts` | Parcial (três regimes nos 8 anos; comparador pendente) |
-| RF-03 | UC-01 | US-02 | — | Pendente |
+| RF-03 | UC-01 | US-02 | `test/domain/regime-comparison.test.ts`, `test/application/compare-regimes-use-case.test.ts` | Coberto no domínio (exposição pela API pendente: #10) |
 | RF-04 | UC-02 | US-03, US-10 | — | Pendente |
 | RF-05 | UC-03 | US-03, US-10 | — | Pendente |
 | RF-06 | UC-01 | US-04 | `test/domain/tax-regime.test.ts` | Parcial (estrutura da memória de cálculo) |
@@ -22,7 +22,7 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RN-05 | UC-01 | US-01 | `test/domain/das-strategy.test.ts`, `test/domain/simples-tables.test.ts` | Coberto |
 | RN-06 | UC-01 | US-02 | `test/domain/tax-regime.test.ts` (herança), `test/domain/simples-hibrido.test.ts` | Coberto (golden 2026, 2027, 2029 e 2033) |
 | RN-07 | UC-01 | US-01 | `test/domain/lucro-presumido.test.ts` | Coberto (golden de serviços e comércio; presunções ⚠️) |
-| RN-08 | UC-01 | US-02 | — | Pendente |
+| RN-08 | UC-01 | US-02 | `test/domain/regime-comparison.test.ts`, `test/application/compare-regimes-use-case.test.ts` | Coberto (golden dos três regimes em 8 anos) |
 | RN-09 | UC-01 | US-01 | `test/domain/company-profile.test.ts` | Coberto |
 | RN-10 | UC-01 | US-02 | `test/domain/simples-hibrido.test.ts` | Coberto (crédito embutido x integral; ⚠️) |
 | RNF-01 | — | — | `eslint.config.js` e `.dependency-cruiser.cjs` (lint) | Coberto |

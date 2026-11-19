@@ -20,6 +20,7 @@ Documentação em português; identificadores de código em inglês. Nomes próp
 | Presunção / natureza da atividade | `Presumption`, `ActivityKind` | Serviço (ISS) ou comércio (ICMS) |
 | DAS híbrido | `HybridDasStrategy` | DAS puro sem as parcelas de CBS/IBS |
 | Crédito ao cliente B2B | `CustomerCreditPolicy` | `EmbeddedCustomerCredit` (puro) e `FullCustomerCredit` (híbrido) |
+| Comparação / recomendação | `RegimeComparison`, `Recommendation`, `DecisiveFactor` | Menor carga no ano e acumulada; fator decisivo por categoria |
 | DAS (estratégia) | `DasStrategy` | Calcula e reparte o DAS do Simples |
 | Faixa / tabela de anexo | `SimplesBracket`, `SimplesAnnexTable` | Teto de RBT12, alíquota nominal, parcela a deduzir |
 | Partilha do DAS | `DasPartition` | Percentual de cada parcela; soma 100% |
