@@ -1,3 +1,5 @@
+import type { Activity } from "../activity/activity.ts";
+import type { ActivityPage } from "../activity/activity-page.ts";
 import type { LucroPresumidoParameters } from "../presumption/lucro-presumido-parameters.ts";
 import type { Presumption } from "../presumption/presumption.ts";
 import type { SimplesActivity } from "../simples/simples-activity.ts";
@@ -24,6 +26,10 @@ export interface TaxRateTableRepository {
   /** Regra de anexo da atividade (CNAE); lança UnsupportedActivityError fora do escopo do MVP. */
   /** Alíquota combinada de PIS e Cofins no regime cumulativo (Lucro Presumido), vigente no ano. */
   cumulativePisCofinsRate(taxYear: TaxYear): Promise<TaxRate>;
+  /** Atividade do catálogo (RF-05); nula se o CNAE não estiver no escopo do MVP. */
+  findActivity(cnae: string): Promise<Activity | null>;
+  /** Busca por texto ou prefixo do código, paginada (página a partir de 1). */
+  searchActivities(term: string, page: number, pageSize: number): Promise<ActivityPage>;
   /** Presunção de IRPJ/CSLL e natureza da atividade (CNAE); lança UnsupportedActivityError fora do escopo. */
   presumptionFor(cnae: string): Promise<Presumption>;
   /** Parâmetros do Lucro Presumido vigentes no ano. */

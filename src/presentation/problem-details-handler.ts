@@ -2,6 +2,7 @@ import { DomainError } from "../domain/errors/domain-error.ts";
 import { EffectivePeriodNotFoundError } from "../domain/errors/effective-period-not-found-error.ts";
 import { InvalidInputError } from "../domain/errors/invalid-input-error.ts";
 import { NotImplementedYetError } from "../domain/errors/not-implemented-yet-error.ts";
+import { ResourceNotFoundError } from "../domain/errors/resource-not-found-error.ts";
 import { SimplesLimitExceededError } from "../domain/errors/simples-limit-exceeded-error.ts";
 import { UnsupportedActivityError } from "../domain/errors/unsupported-activity-error.ts";
 import { MalformedRequestError } from "./malformed-request-error.ts";
@@ -16,6 +17,7 @@ export class ProblemDetailsHandler {
     if (error instanceof ValidationFailedError) {
       return this.respond(422, error.code, "Entrada inválida", error.message, { errors: error.fields });
     }
+    if (error instanceof ResourceNotFoundError) return this.respond(404, error.code, "Recurso não encontrado", error.message);
     if (error instanceof DomainError) {
       return this.respond(this.statusOf(error), error.code, error.name, error.message);
     }

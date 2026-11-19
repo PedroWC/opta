@@ -6,8 +6,8 @@ import type { ActivityKind } from "./activity-kind.ts";
 export class Presumption {
   constructor(
     readonly kind: ActivityKind,
-    private readonly irpjRate: TaxRate,
-    private readonly csllRate: TaxRate,
+    readonly irpjRate: TaxRate,
+    readonly csllRate: TaxRate,
   ) {}
 
   irpjBase(revenue: Money): Money {

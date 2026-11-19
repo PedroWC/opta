@@ -1,13 +1,15 @@
 import { EffectivePeriodNotFoundError } from "../domain/errors/effective-period-not-found-error.ts";
 import type { TaxRateTableRepository, TransitionRates } from "../domain/ports/tax-rate-table-repository.ts";
 import { UnsupportedActivityError } from "../domain/errors/unsupported-activity-error.ts";
-import { FixedAnnexActivity, PayrollFactorActivity } from "../domain/simples/simples-activity.ts";
 import type { SimplesActivity } from "../domain/simples/simples-activity.ts";
 import type { SimplesAnnex } from "../domain/simples/simples-annex.ts";
 import type { SimplesAnnexTable } from "../domain/simples/simples-annex-table.ts";
+import type { Activity } from "../domain/activity/activity.ts";
+import { ActivityPage } from "../domain/activity/activity-page.ts";
+import { ActivityReferenceCatalog } from "./activity-reference-catalog.ts";
 import { SimplesReferenceTables } from "./simples-reference-tables.ts";
 import { LucroPresumidoParameters } from "../domain/presumption/lucro-presumido-parameters.ts";
-import { Presumption } from "../domain/presumption/presumption.ts";
+import type { Presumption } from "../domain/presumption/presumption.ts";
 import { Money } from "../domain/shared/money.ts";
 import { TaxRate } from "../domain/shared/tax-rate.ts";
 import type { TaxYear } from "../domain/shared/tax-year.ts";
@@ -37,44 +39,40 @@ export class InMemoryTaxRateTableRepository implements TaxRateTableRepository {
     2033: { cbsIsTestRate: false, ibsPercentageOfReference: 100n, icmsIssPercentageInForce: 0 },
   };
 
-  private static readonly PAYROLL_FACTOR_CNAES: readonly string[] = [
-    "6201-5/01", "6201-5/02", "6202-3/00", "6203-1/00", "6204-0/00", "6209-1/00", "6311-9/00",
-  ];
-  private static readonly ANNEX_III_CNAES: readonly string[] = ["8630-5/04", "9602-5/01", "6920-6/01"];
-
-  private static readonly SERVICE_CNAES: readonly string[] = [
-    ...InMemoryTaxRateTableRepository.PAYROLL_FACTOR_CNAES,
-    ...InMemoryTaxRateTableRepository.ANNEX_III_CNAES,
-  ];
-  private static readonly COMMERCE_CNAES: readonly string[] = ["4711-3/02", "4781-4/00", "4761-0/03"];
-
   private readonly simplesTables = new SimplesReferenceTables();
+  private readonly activities = new ActivityReferenceCatalog().all();
 
   async simplesAnnexTableFor(annex: SimplesAnnex): Promise<SimplesAnnexTable> {
     // Cenário de referência: as mesmas faixas valem nos 8 anos (o total do DAS não muda na transição).
     return this.simplesTables.tableFor(annex);
   }
 
-  /** Mapa provisório de CNAE para anexo (⚠️ conferir); será a tabela ATIVIDADE_CNAE (issue #3). */
+  async findActivity(cnae: string): Promise<Activity | null> {
+    return this.activities.find((activity) => activity.cnae === cnae) ?? null;
+  }
+
+  async searchActivities(term: string, page: number, pageSize: number): Promise<ActivityPage> {
+    const found = this.activities.filter((activity) => activity.matches(term));
+    const start = (page - 1) * pageSize;
+    return new ActivityPage(found.slice(start, start + pageSize), page, found.length > start + pageSize);
+  }
+
+  /** Regra de anexo do Simples (RN-05); atividade fora de serviços dos Anexos III e V é rejeitada. */
   async simplesActivityFor(cnae: string): Promise<SimplesActivity> {
-    if (InMemoryTaxRateTableRepository.PAYROLL_FACTOR_CNAES.includes(cnae)) return new PayrollFactorActivity();
-    if (InMemoryTaxRateTableRepository.ANNEX_III_CNAES.includes(cnae)) return new FixedAnnexActivity("III");
-    throw new UnsupportedActivityError(cnae);
+    const simples = (await this.findActivity(cnae))?.simples;
+    if (!simples) throw new UnsupportedActivityError(cnae);
+    return simples;
+  }
+
+  /** Presunção do Lucro Presumido (RN-07): serviços 32%/32%, comércio 8% e 12% (⚠️ sem a LC 224/2025). */
+  async presumptionFor(cnae: string): Promise<Presumption> {
+    const activity = await this.findActivity(cnae);
+    if (!activity) throw new UnsupportedActivityError(cnae);
+    return activity.presumption;
   }
 
   async assumptionsVersion(): Promise<string> {
     return "2026.1";
-  }
-
-  /** Presunção: serviços 32%/32%; comércio 8% e 12% (⚠️ conferir; sem a majoração da LC 224/2025). */
-  async presumptionFor(cnae: string): Promise<Presumption> {
-    if (InMemoryTaxRateTableRepository.SERVICE_CNAES.includes(cnae)) {
-      return new Presumption("SERVICE", TaxRate.fromPercentage("32"), TaxRate.fromPercentage("32"));
-    }
-    if (InMemoryTaxRateTableRepository.COMMERCE_CNAES.includes(cnae)) {
-      return new Presumption("COMMERCE", TaxRate.fromPercentage("8"), TaxRate.fromPercentage("12"));
-    }
-    throw new UnsupportedActivityError(cnae);
   }
 
   async lucroPresumidoParametersFor(): Promise<LucroPresumidoParameters> {

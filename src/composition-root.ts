@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { ActivityQueries } from "./application/activity-queries.ts";
+import { GetAssumptionsUseCase } from "./application/get-assumptions-use-case.ts";
 import { RunSimulationUseCase } from "./application/run-simulation-use-case.ts";
 import { SimulateRegimesUseCase } from "./application/simulate-regimes-use-case.ts";
 import { LucroPresumido } from "./domain/regimes/lucro-presumido.ts";
@@ -7,9 +10,12 @@ import { InMemoryTaxRateTableRepository } from "./infrastructure/in-memory-tax-r
 import { HealthController } from "./presentation/health-controller.ts";
 import { HttpServer } from "./presentation/http-server.ts";
 import { ProblemDetailsHandler } from "./presentation/problem-details-handler.ts";
+import { QueryValidator } from "./presentation/query-validator.ts";
+import { ReferenceController } from "./presentation/reference-controller.ts";
 import { SimulationController } from "./presentation/simulation-controller.ts";
 import { SimulationRequestValidator } from "./presentation/simulation-request-validator.ts";
 import { SimulationResponseMapper } from "./presentation/simulation-response-mapper.ts";
+
 
 /** Única classe que conhece as implementações concretas (composição na raiz). */
 export class CompositionRoot {
@@ -27,6 +33,19 @@ export class CompositionRoot {
       this.runSimulation,
       new SimulationResponseMapper(),
     );
-    this.httpServer = new HttpServer(new HealthController(), simulation, new ProblemDetailsHandler());
+    const reference = new ReferenceController(
+      new QueryValidator(),
+      new GetAssumptionsUseCase(rateTables),
+      new ActivityQueries(rateTables),
+      rateTables,
+      CompositionRoot.serviceVersion(),
+    );
+    this.httpServer = new HttpServer(new HealthController(), simulation, reference, new ProblemDetailsHandler());
+  }
+
+  /** Versão do serviço, lida do package.json (fonte única). */
+  private static serviceVersion(): string {
+    const file = readFileSync(new URL("../package.json", import.meta.url), "utf8");
+    return (JSON.parse(file) as { version: string }).version;
   }
 }
