@@ -44,7 +44,7 @@ describe("Navegação e rotas", () => {
   });
 
   test.each([
-    ["/", "Simulador de regimes", "Simulador — Opta"],
+    ["/", "Qual regime compensa na Reforma Tributária?", "Simulador — Opta"],
     ["/resultado", "Resultado da simulação", "Resultado — Opta"],
     ["/premissas", "Premissas de alíquotas", "Premissas — Opta"],
     ["/sobre", "Metodologia", "Metodologia — Opta"],

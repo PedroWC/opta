@@ -18,10 +18,13 @@
     "api:types": "npx --yes openapi-typescript@7.13.0 ../docs/api/openapi.yaml -o src/api/schema.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "^7.0.7",
     "@tanstack/react-query": "^5.108.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "react-router-dom": "^7.18.6"
+    "react-hook-form": "^7.92.0",
+    "react-router-dom": "^7.18.6",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^8.0.0",
