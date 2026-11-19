@@ -1,3 +1,5 @@
+import type { LucroPresumidoParameters } from "../presumption/lucro-presumido-parameters.ts";
+import type { Presumption } from "../presumption/presumption.ts";
 import type { SimplesActivity } from "../simples/simples-activity.ts";
 import type { SimplesAnnex } from "../simples/simples-annex.ts";
 import type { SimplesAnnexTable } from "../simples/simples-annex-table.ts";
@@ -22,5 +24,9 @@ export interface TaxRateTableRepository {
   /** Regra de anexo da atividade (CNAE); lança UnsupportedActivityError fora do escopo do MVP. */
   /** Alíquota combinada de PIS e Cofins no regime cumulativo (Lucro Presumido), vigente no ano. */
   cumulativePisCofinsRate(taxYear: TaxYear): Promise<TaxRate>;
+  /** Presunção de IRPJ/CSLL e natureza da atividade (CNAE); lança UnsupportedActivityError fora do escopo. */
+  presumptionFor(cnae: string): Promise<Presumption>;
+  /** Parâmetros do Lucro Presumido vigentes no ano. */
+  lucroPresumidoParametersFor(taxYear: TaxYear): Promise<LucroPresumidoParameters>;
   simplesActivityFor(cnae: string): Promise<SimplesActivity>;
 }
