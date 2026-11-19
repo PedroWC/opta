@@ -6,6 +6,8 @@ import { SimulateRegimesUseCase } from "./application/simulate-regimes-use-case.
 import { LucroPresumido } from "./domain/regimes/lucro-presumido.ts";
 import { SimplesHibrido } from "./domain/regimes/simples-hibrido.ts";
 import { SimplesNacional } from "./domain/regimes/simples-nacional.ts";
+import type { TaxRateTableRepository } from "./domain/ports/tax-rate-table-repository.ts";
+import { RepositoryProvider } from "./infrastructure/sql/repository-provider.ts";
 import { InMemoryTaxRateTableRepository } from "./infrastructure/in-memory-tax-rate-table-repository.ts";
 import { HealthController } from "./presentation/health-controller.ts";
 import { HttpServer } from "./presentation/http-server.ts";
@@ -23,8 +25,7 @@ export class CompositionRoot {
   readonly runSimulation: RunSimulationUseCase;
   readonly httpServer: HttpServer;
 
-  constructor() {
-    const rateTables = new InMemoryTaxRateTableRepository();
+  constructor(rateTables: TaxRateTableRepository = new InMemoryTaxRateTableRepository()) {
     const regimes = [new SimplesNacional(), new SimplesHibrido(), new LucroPresumido()];
     this.simulateRegimes = new SimulateRegimesUseCase(regimes, rateTables);
     this.runSimulation = new RunSimulationUseCase(regimes, rateTables);
@@ -41,6 +42,14 @@ export class CompositionRoot {
       CompositionRoot.serviceVersion(),
     );
     this.httpServer = new HttpServer(new HealthController(), simulation, reference, new ProblemDetailsHandler());
+  }
+
+  /**
+   * Escolhe o repositório pela variável OPTA_DB: `memory` (padrão), `sqlite` (OPTA_SQLITE_PATH, padrão
+   * `opta.db`) ou `oracle` (OPTA_ORACLE_*). Migra o esquema e as sementes antes de servir.
+   */
+  static async fromEnvironment(env: Readonly<Record<string, string | undefined>>): Promise<CompositionRoot> {
+    return new CompositionRoot(await new RepositoryProvider().create(env));
   }
 
   /** Versão do serviço, lida do package.json (fonte única). */

@@ -2,7 +2,7 @@
 import { serve } from "@hono/node-server";
 import { CompositionRoot } from "./composition-root.ts";
 
-const root = new CompositionRoot();
+const root = await CompositionRoot.fromEnvironment(process.env);
 const port = Number(process.env["PORT"] ?? 3000);
 
 serve({ fetch: root.httpServer.fetchHandler(), port });
