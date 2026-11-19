@@ -1,9 +1,11 @@
 .form {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
   max-width: 40rem;
 }
 .section {
+  min-inline-size: 0; /* fieldset tem min-content por padrão e estoura telas estreitas */
   border: var(--border-width) solid var(--color-border-strong);
   border-radius: var(--radius-md);
   padding: var(--space-4);

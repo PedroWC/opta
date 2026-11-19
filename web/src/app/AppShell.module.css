@@ -2,6 +2,8 @@
   min-height: 100dvh;
   display: grid;
   grid-template-rows: auto 1fr auto;
+  /* A coluna única não pode crescer além da tela, por mais larga que seja a fonte do sistema. */
+  grid-template-columns: minmax(0, 1fr);
 }
 .header {
   display: flex;

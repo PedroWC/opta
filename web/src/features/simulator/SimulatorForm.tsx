@@ -46,6 +46,8 @@ export function SimulatorForm({ onSubmit, submitting = false, serverProblems = [
     resolver: zodResolver(simulatorSchema),
     defaultValues: { ...EMPTY_VALUES, ...initialValues },
     reValidateMode: "onChange",
+    // O foco vai ao resumo de erros (US-06), e não ao primeiro campo inválido, que seria o padrão do React Hook Form.
+    shouldFocusError: false,
   });
   const { register, control, handleSubmit, formState, reset, setError } = form;
   const summaryRef = useRef<HTMLDivElement>(null);

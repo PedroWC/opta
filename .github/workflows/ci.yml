@@ -36,3 +36,23 @@ jobs:
       - name: Tipos da API em dia com o contrato OpenAPI
         run: npm run api:types && git diff --exit-code -- src/api/schema.ts
       - run: npm run check
+
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            package-lock.json
+            web/package-lock.json
+      - run: npm ci
+      - run: npm ci --prefix web
+      - name: Instala o Chromium do Playwright
+        run: npx playwright install --with-deps chromium
+        working-directory: web
+      - name: Testes E2E contra a API real
+        run: npm run e2e
+        working-directory: web

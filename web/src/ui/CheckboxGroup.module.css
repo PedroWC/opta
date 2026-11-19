@@ -1,4 +1,5 @@
 .group {
+  min-inline-size: 0;
   border: 0;
   padding: 0;
   margin: 0 0 var(--space-stack-md);
