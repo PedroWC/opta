@@ -53,6 +53,11 @@ export class InMemoryTaxRateTableRepository implements TaxRateTableRepository {
     throw new UnsupportedActivityError(cnae);
   }
 
+  /** PIS 0,65% + Cofins 3% (⚠️ conferir). Extinto a partir de 2027 pela transição. */
+  async cumulativePisCofinsRate(): Promise<TaxRate> {
+    return TaxRate.fromPercentage("3.65");
+  }
+
   async transitionRatesFor(taxYear: TaxYear): Promise<TransitionRates> {
     const rule = InMemoryTaxRateTableRepository.RULES[taxYear.year];
     if (!rule) throw new EffectivePeriodNotFoundError("ALIQUOTA_TRANSICAO", taxYear.year);
@@ -66,6 +71,7 @@ export class InMemoryTaxRateTableRepository implements TaxRateTableRepository {
       ibs,
       icmsIssPercentageInForce: rule.icmsIssPercentageInForce,
       pisCofinsExtinct: taxYear.year >= 2027,
+      consumptionTestYear: taxYear.year === 2026,
     };
   }
 }
