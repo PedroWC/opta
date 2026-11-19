@@ -15,6 +15,8 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       "@typescript-eslint/no-explicit-any": "error",
+      // Painel de aba e região rolável precisam ser focáveis por teclado (APG; WCAG 2.1.1).
+      "jsx-a11y/no-noninteractive-tabindex": ["error", { roles: ["tabpanel", "region"], tags: [] }],
     },
   },
   { files: ["*.config.{js,ts}"], languageOptions: { globals: globals.node } },

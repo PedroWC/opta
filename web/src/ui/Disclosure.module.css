@@ -1,0 +1,16 @@
+.disclosure {
+  border: var(--border-width) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-stack-md);
+}
+.summary {
+  min-height: var(--target-min);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-4);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+}
+.content {
+  padding: 0 var(--space-4) var(--space-4);
+}
