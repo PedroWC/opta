@@ -1,0 +1,26 @@
+# Registro de decisões do projeto
+
+Decisões de produto, processo e arquitetura tomadas pelo mantenedor, em ordem de tema. Decisões **arquiteturais** têm um ADR próprio em [docs/arquitetura/adr](../arquitetura/adr/README.md); este registro as resume e guarda as demais. Uma decisão só muda por uma nova linha que a substitua (a antiga passa a "Substituída").
+
+| ID | Data | Decisão | Motivo | Onde está detalhada | Situação |
+|---|---|---|---|---|---|
+| DEC-01 | 2026-11 | O sistema se chama **Opta**. | Nome curto, remete a "optar" por um regime. | [README](../../README.md) | Vigente |
+| DEC-02 | 2026-11 | O projeto vitrine é um **simulador de regimes tributários na Reforma** (Simples Nacional, Simples híbrido e Lucro Presumido, de 2026 a 2033). | Domínio fiscal rico, bom para demonstrar modelagem e testes em portfólio. | [Especificação](../especificacao.md) | Vigente |
+| DEC-03 | 2026-11 | O **backend é 100% orientado a objetos** (classes, Strategy, Template Method, herança só para "é um"); o bootstrap é a única exceção. | Vitrine de OOP e separação de responsabilidades; verificável por lint e dependency-cruiser. | [ADR-0001](../arquitetura/adr/0001-backend-100-orientado-a-objetos.md) | Vigente |
+| DEC-04 | 2026-11 | Stack do backend: TypeScript estrito, Node, Hono e Vitest. | Preferência da stack e leveza para demonstrar. | [ADR-0002](../arquitetura/adr/0002-stack-typescript-node-hono.md) | Vigente |
+| DEC-05 | 2026-11 | Os repositórios `calculadora-rtc-*` são **somente referência** de regras; nunca são alterados. | Evitar efeitos colaterais em projetos existentes. | [Especificação](../especificacao.md), seção 3.6 | Vigente |
+| DEC-06 | 2026-11 | A autoria dos commits é a do mantenedor (identidade já configurada localmente); nenhum rodapé de atribuição automática nos commits, PRs, issues, código ou documentos. | Repositório público de portfólio com autoria única e limpa. | Regras do repositório | Vigente |
+| DEC-07 | 2026-11-18 | O **front-end é uma SPA com React e Vite**, em pacote próprio `web/` **no mesmo repositório** do backend. | Ferramenta sem SEO por página; um clone, um CI e uma demo; Next.js não traz ganho aqui. | [ADR-0006](../arquitetura/adr/0006-frontend-react-vite-spa.md) | Vigente |
+| DEC-08 | 2026-11-18 | Aprovados os novos requisitos e histórias do front-end: **RF-09 a RF-11, RNF-09 a RNF-12 e US-05 a US-10**. | Documentar antes de implementar. | [ERS](../requisitos/ers.md), [histórias](../produto/historias-de-usuario.md), [rastreabilidade](../requisitos/rastreabilidade.md) | Vigente |
+| DEC-09 | 2026-11-18 | A issue **#12** é dividida em issues **FE-01 a FE-16**, ligadas a ela; FE-17 a FE-20 ficam como planejamento. | #12 é grande demais para uma branch; fatias verticais. | [Backlog do front-end](../frontend/backlog-frontend.md) | Vigente |
+| DEC-10 | 2026-11-18 | O formulário mostra o **Fator R aproximado** ao vivo, como dica informativa (folha ÷ receita anual), sem decidir nada. | Ajuda o empresário a entender o impacto da folha. | [Plano do front-end](../frontend/plano-frontend.md), seção 8 | Vigente |
+| DEC-11 | 2026-11-18 | O **público principal é o empresário**, com linguagem simples; a memória de cálculo e a metodologia ficam em nível técnico, para o contador. | Define o tom dos textos e a ordem das telas. | [Wireframes](../prototipos/wireframes-simulador.md) | Vigente |
+| DEC-12 | 2026-11-18 | Gráfico com **Recharts e tabela equivalente** sempre disponível; trocar por visx só se a acessibilidade não for suficiente. | Menor custo, com plano B. | [Plano do front-end](../frontend/plano-frontend.md) | Vigente |
+| DEC-13 | 2026-11-18 | O estado da simulação fica no **fragmento da URL** (sem persistência no servidor) e a interface é só em PT-BR no MVP. | Privacidade (RNF-12) e simplicidade. | [Plano do front-end](../frontend/plano-frontend.md) | Vigente |
+| DEC-14 | 2026-11-18 | O contrato OpenAPI (#9) incorpora os pedidos do front: erros por campo no 422 (`errors[]` com `pointer` e `detail`), valores monetários e alíquotas como **texto decimal**, busca de atividade por texto (`?q=`, lista curta paginada), premissas de todos os anos quando `ano` é omitido, `premissas_versao` e `avisos[]` na simulação, e `fator_decisivo` com código estruturado. | O front depende desses campos; decimais em texto evitam perda de precisão (RNF-02, ADR-0003). | [Plano do front-end](../frontend/plano-frontend.md), seção 7 | Vigente |
+| DEC-15 | 2026-11-18 | Em produção, front e API são servidos sob a **mesma origem** (sem CORS); em desenvolvimento, o proxy `/v1` do Vite cumpre esse papel. Se a hospedagem exigir origens separadas, usa-se CORS restrito à origem do front. | Menos superfície de ataque e nenhuma configuração extra; combina com a CSP restrita. | Issue #14 e FE-16 (#31); gera ADR na entrega | Vigente |
+| DEC-16 | 2026-11-18 | Enquanto o contrato (#9) não existe, o front desenvolve contra **fixtures tipadas e MSW** e troca para os tipos gerados quando o contrato for publicado. | Permite avançar em paralelo ao backend sem retrabalho de tipos. | [Backlog do front-end](../frontend/backlog-frontend.md), FE-05 (#20) | Vigente |
+
+## Decisões ainda em aberto
+
+- Versão final da biblioteca de gráficos e da sua camada de acessibilidade, a confirmar na implementação (FE-09, #24).
