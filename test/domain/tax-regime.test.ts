@@ -3,7 +3,6 @@ import { AnnualResult } from "../../src/domain/regimes/annual-result.ts";
 import { TaxRegime } from "../../src/domain/regimes/tax-regime.ts";
 import { SimplesNacional } from "../../src/domain/regimes/simples-nacional.ts";
 import { SimplesHibrido } from "../../src/domain/regimes/simples-hibrido.ts";
-import { NotImplementedYetError } from "../../src/domain/errors/not-implemented-yet-error.ts";
 import { CompanyProfile } from "../../src/domain/shared/company-profile.ts";
 import { Money } from "../../src/domain/shared/money.ts";
 import { TaxRate } from "../../src/domain/shared/tax-rate.ts";
@@ -65,13 +64,4 @@ describe("RN-06: o Simples híbrido é um Simples", () => {
     expect(hybrid).toBeInstanceOf(SimplesNacional);
     expect(hybrid.name).toBe("SIMPLES_HIBRIDO");
   });
-});
-
-describe("Esqueleto: regimes ainda sem cálculo sinalizam pendência (backlog #7)", () => {
-  test.each([new SimplesHibrido()])(
-    "RN-06: %s falha de forma explícita até ser implementado",
-    async (regime) => {
-      await expect(regime.simulate(contextFor(2026))).rejects.toBeInstanceOf(NotImplementedYetError);
-    },
-  );
 });

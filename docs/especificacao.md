@@ -49,7 +49,7 @@ Alíquotas de referência: CBS ≈ 8,8% e IBS ≈ 17,7% (soma ≈ 26,5%) como **
 - Crédito ao adquirente PJ: no regime puro, limitado ao valor de CBS/IBS efetivamente embutido no DAS (proporção da alíquota efetiva); no híbrido, crédito cheio.
 
 ### 3.3 Simples híbrido (opção pelo regime regular de IBS/CBS) ⚠️ LC 214/2025, dispositivos que permitem ao optante recolher IBS/CBS fora do DAS
-- Optante continua pagando IRPJ, CSLL, CPP, e a parcela restante do DAS **sem** PIS/Cofins/ICMS/ISS (retirados da base do DAS na proporção da repartição).
+- Optante continua pagando IRPJ, CSLL, CPP e as parcelas ainda vigentes de PIS/Cofins e ISS/ICMS no DAS; **saem do DAS apenas as parcelas que a transição já substituiu por CBS/IBS** (na proporção da repartição, ver RN-04 e DEC-17), que passam a ser apuradas no regime regular. ⚠️ Conferir na LC 214/2025.
 - IBS/CBS apurados pelo regime normal: `débito (receita × alíquota) − crédito (compras creditáveis × alíquota)`.
 - A decisão é anual e irretratável no ano (conferir regra de janela de opção).
 - Ganho: crédito cheio ao cliente B2B e crédito próprio de compras. Custo: obrigações acessórias maiores e carga potencialmente maior quando margem é alta e vendas são B2C.
