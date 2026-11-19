@@ -6,7 +6,7 @@ Simulador de regimes tributários na Reforma Tributária do Consumo. Compara **S
 
 ## Estado
 
-Esqueleto do backend: tipos de domínio (`Money`, `TaxRate`, `TaxYear`, `CompanyProfile`), regimes abstratos (Template Method), estratégias de tributo (interface), repositório em memória da transição CBS/IBS e `GET /v1/health`. Os cálculos de cada regime estão no [backlog](docs/processo/backlog-inicial.md).
+Backend com tipos de domínio (`Money`, `TaxRate`, `TaxYear`, `CompanyProfile`), regimes abstratos (Template Method), estratégias de tributo, repositório em memória e `GET /v1/health`. O **Simples Nacional puro (Anexos III e V, Fator R e partilha do DAS)** já calcula de 2026 a 2033; Simples híbrido e Lucro Presumido seguem no [backlog](docs/processo/backlog-inicial.md).
 
 ## Como rodar
 
