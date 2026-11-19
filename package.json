@@ -16,6 +16,7 @@
     "mutation": "stryker run",
     "web:install": "npm ci --prefix web",
     "web:dev": "npm run dev --prefix web",
+    "web:build": "npm run build --prefix web",
     "web:check": "npm run check --prefix web",
     "check": "npm run typecheck && npm run lint && npm test"
   },

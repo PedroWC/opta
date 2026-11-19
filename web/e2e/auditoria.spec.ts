@@ -1,5 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-import { simulateExample } from "./helpers";
+import { injectCss, simulateExample } from "./helpers";
 
 const SCREENS: ReadonlyArray<readonly [string, string]> = [
   ["simulador", "/"],
@@ -85,7 +85,7 @@ test.describe("WCAG 1.4.12: espaçamento de texto e 1.4.4: zoom", () => {
     test(`${name}: com o espaçamento de texto da WCAG o conteúdo não é cortado nem estoura a tela`, async ({ page }) => {
       await page.goto(path);
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-      await page.addStyleTag({ content: spacing });
+      await injectCss(page, spacing);
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       expect(overflow).toBeLessThanOrEqual(0);
       const clipped = await page.evaluate(() =>

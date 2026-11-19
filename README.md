@@ -37,6 +37,16 @@ npx --prefix web playwright install chromium   # uma vez
 npm run e2e --prefix web
 ```
 
+## Build estático e produção
+
+A API serve o front-end construído pela mesma origem (sem CORS), com cabeçalhos de segurança e CSP restritiva ([ADR-0008](docs/arquitetura/adr/0008-front-servido-pela-api-sob-a-mesma-origem.md)):
+
+```bash
+npm run web:build
+OPTA_WEB_DIR=web/dist npm start    # http://localhost:3000
+E2E_PROD=1 npm run e2e --prefix web   # E2E contra esse build, com orçamento de desempenho
+```
+
 ## Persistência
 
 `OPTA_DB=memory` (padrão), `sqlite` ou `oracle` escolhe o repositório das tabelas fiscais; veja [persistência](docs/arquitetura/persistencia.md). Exemplo: `OPTA_DB=sqlite npm run dev` (cria `opta.db`, que o git ignora).

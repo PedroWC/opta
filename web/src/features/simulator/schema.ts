@@ -1,3 +1,4 @@
+import "../../lib/zodConfig.ts";
 import { z } from "zod";
 import { parsePercentInput } from "../../lib/percent.ts";
 import type { SimulationRequest } from "../../api/types.ts";
