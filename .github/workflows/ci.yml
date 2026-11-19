@@ -33,4 +33,6 @@ jobs:
           cache: npm
           cache-dependency-path: web/package-lock.json
       - run: npm ci
+      - name: Tipos da API em dia com o contrato OpenAPI
+        run: npm run api:types && git diff --exit-code -- src/api/schema.ts
       - run: npm run check

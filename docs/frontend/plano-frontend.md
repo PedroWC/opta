@@ -188,7 +188,7 @@ Os itens abaixo foram incorporados ao contrato (DEC-14). Diferenças: o fator de
 6. **CORS ou proxy:** em produção, servir o front e a API sob a mesma origem (ou configurar CORS restrito). Decidir no #14.
 7. **Fator decisivo estruturado**: além do texto `recomendacao.motivo`, um campo `fator_decisivo` com código (`CREDITO_B2B`, `MARGEM`, `FOLHA`, `FAIXA_SIMPLES`) para o front mostrar um selo e permitir tradução.
 
-Enquanto o #9 não existir, o front desenvolve contra **fixtures tipadas** e MSW; ao publicar o contrato, troca-se o tipo manual pelo gerado.
+O contrato já existe (#9): os tipos do front são **gerados** de `docs/api/openapi.yaml` (`npm run api:types`, `web/src/api/schema.ts`) e o CI falha se o arquivo gerado divergir do contrato. Os testes usam **MSW** com fixtures tipadas (`web/src/test-utils`), validadas contra o schema do contrato (issue #20). Como a API real já existe (#10 e #11), o desenvolvimento usa o proxy `/v1` do Vite.
 
 ## 8. Decisões (resolvidas)
 
