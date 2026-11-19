@@ -47,12 +47,27 @@ export const simulationFixture: SimulationResponse = {
   avisos: ["Simulador educacional: não é consultoria tributária."],
 };
 
+const yearRates: ReadonlyArray<[number, string, string, number, boolean, boolean]> = [
+  [2026, "0.9000", "0.1000", 100, false, true],
+  [2027, "8.8000", "0.1000", 100, true, false],
+  [2028, "8.8000", "0.1000", 100, true, false],
+  [2029, "8.8000", "1.7700", 90, true, false],
+  [2030, "8.8000", "3.5400", 80, true, false],
+  [2031, "8.8000", "5.3100", 70, true, false],
+  [2032, "8.8000", "7.0800", 60, true, false],
+  [2033, "8.8000", "17.7000", 0, true, false],
+];
+
 export const assumptionsFixture: AssumptionsResponse = {
   premissas_versao: "2026.1",
-  anos: [
-    { ano: 2026, cbs: "0.9000", ibs: "0.1000", icms_iss_vigente_pct: 100, pis_cofins_extinto: false, ano_de_teste: true },
-    { ano: 2027, cbs: "8.8000", ibs: "0.1000", icms_iss_vigente_pct: 100, pis_cofins_extinto: true, ano_de_teste: false },
-  ],
+  anos: yearRates.map(([ano, cbs, ibs, icms_iss_vigente_pct, pis_cofins_extinto, ano_de_teste]) => ({
+    ano,
+    cbs,
+    ibs,
+    icms_iss_vigente_pct,
+    pis_cofins_extinto,
+    ano_de_teste,
+  })),
 };
 
 export const activityFixture: Activity = {

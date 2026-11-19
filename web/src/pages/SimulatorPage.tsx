@@ -1,6 +1,7 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { usePageTitle } from "../app/usePageTitle.ts";
 import { decodeFragment, encodeRequest, valuesOf } from "../features/share/inputUrlCodec.ts";
+import { CNAE_PATTERN } from "../features/simulator/CnaeField.tsx";
 import { SimulatorForm } from "../features/simulator/SimulatorForm.tsx";
 import { Callout } from "../ui/index.ts";
 
@@ -10,7 +11,12 @@ export function SimulatorPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const decoded = decodeFragment(location.hash);
-  const initialValues = valuesOf(decoded);
+  // O CNAE é um código público: pode vir como ?cnae= (atalho da página de premissas), ao contrário dos dados da empresa.
+  const cnaeParam = useSearchParams()[0].get("cnae");
+  const initialValues = {
+    ...(cnaeParam !== null && CNAE_PATTERN.test(cnaeParam) ? { cnae: cnaeParam } : {}),
+    ...valuesOf(decoded),
+  };
   const invalidLink = decoded.status === "invalid";
   return (
     <>

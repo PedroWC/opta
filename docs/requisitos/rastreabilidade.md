@@ -7,8 +7,8 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RF-01 | UC-01 | US-01, US-06 | `test/presentation/simulation-api.test.ts`, `web/src/features/simulator/simulator.test.tsx`, `test/domain/das-strategy.test.ts`, `test/domain/lucro-presumido.test.ts` | Coberto na API (`POST /v1/simulacoes`) e no formulário da interface (`web/src/features/simulator`); resultado na interface pendente (#23) |
 | RF-02 | UC-01 | US-01 | `test/presentation/simulation-api.test.ts`, `test/application/simulate-regimes-use-case.test.ts`, `test/domain/das-strategy.test.ts` | Coberto (três regimes nos 8 anos, expostos pela API) ; tabela e cartões na interface (`web/src/pages/result.test.tsx`) |
 | RF-03 | UC-01 | US-02 | `test/presentation/simulation-api.test.ts`, `test/domain/regime-comparison.test.ts`, `test/application/compare-regimes-use-case.test.ts` | Coberto (recomendação na API) ; recomendação na interface (`web/src/pages/result.test.tsx`) |
-| RF-04 | UC-02 | US-03, US-10 | `test/presentation/reference-api.test.ts`, `test/contract/api-conforms-to-openapi.test.ts` | Coberto na API (`GET /v1/premissas/aliquotas`); tela pendente (#12) |
-| RF-05 | UC-03 | US-03, US-10 | `test/presentation/reference-api.test.ts`, `test/contract/api-conforms-to-openapi.test.ts`, `web/src/features/simulator/cnae.test.tsx`, `web/src/ui/combobox.test.tsx` | Coberto na API (`GET /v1/atividades`) e no combobox de CNAE do simulador (teclado, busca com espera, cartão da atividade); consulta na tela de premissas pendente (#27) |
+| RF-04 | UC-02 | US-03, US-10 | `test/presentation/reference-api.test.ts`, `test/contract/api-conforms-to-openapi.test.ts`, `web/src/pages/assumptions.test.tsx` | Coberto na API (`GET /v1/premissas/aliquotas`) e na página de premissas (tabela por ano e cartões no celular) |
+| RF-05 | UC-03 | US-03, US-10 | `test/presentation/reference-api.test.ts`, `test/contract/api-conforms-to-openapi.test.ts`, `web/src/features/simulator/cnae.test.tsx`, `web/src/ui/combobox.test.tsx` | Coberto na API (`GET /v1/atividades`) e no combobox de CNAE do simulador (teclado, busca com espera, cartão da atividade); consulta de atividade na página de premissas, com atalho para o simulador (`web/src/pages/assumptions.test.tsx`) |
 | RF-06 | UC-01 | US-04 | `test/presentation/simulation-api.test.ts`, `test/domain/tax-regime.test.ts`, `web/src/features/result/memory.test.tsx` | Coberto na API e na interface (acordeão por ano, abas por regime, fonte legal por linha, partilha como detalhe) |
 | RF-07 | — | — | `test/health.test.ts`, `test/presentation/reference-api.test.ts` | Coberto (`/v1/health` e `/v1/versao`) |
 | RF-08 | UC-01 | US-01, US-08 | `web/src/features/result/chart.test.tsx`, `web/src/pages/result.test.tsx`, `web/src/features/result/memory.test.tsx` | Parcial (formulário, tabela e gráfico por ano na interface; memória de cálculo na interface; E2E pendente: #29) |
@@ -16,7 +16,7 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RF-10 | UC-01 | US-05 | — | Pendente |
 | RF-11 | — | US-10 | — | Pendente |
 | RN-01 | UC-01 | US-01 | `test/domain/transition.test.ts` | Coberto |
-| RN-02 | UC-01, UC-02 | US-01, US-03 | `test/domain/transition.test.ts`, `test/domain/consumption-taxes.test.ts` | Coberto nas estratégias (repositório em memória; persistência na #3) |
+| RN-02 | UC-01, UC-02 | US-01, US-03 | `test/domain/transition.test.ts`, `test/domain/consumption-taxes.test.ts` | Coberto nas estratégias (repositório em memória; persistência na #3); exibida na interface (`web/src/pages/assumptions.test.tsx`) |
 | RN-03 | UC-01 | US-04 | `test/domain/money.test.ts` | Coberto |
 | RN-04 | UC-01 | US-01 | `test/domain/das-strategy.test.ts`, `test/domain/simples-tables.test.ts` | Coberto (golden conferidos à mão; tabelas ⚠️ a conferir na fonte) |
 | RN-05 | UC-01 | US-01 | `test/domain/das-strategy.test.ts`, `test/domain/simples-tables.test.ts` | Coberto |
