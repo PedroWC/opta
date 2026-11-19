@@ -169,7 +169,7 @@ Contrato-base: especificação, seção 5, e `docs/produto/mapa-do-site.md`.
 |---|---|---|
 | 422 / `SIM-001` com lista de campos | Simulador | Resumo de erros no topo (foco nele) + mensagem junto de cada campo |
 | 422 sem campos | Simulador | Mensagem geral, mantém os dados |
-| `SIM-002` (parâmetros sem vigência para algum ano) | Resultado | Aviso claro com o ano; mostra o que for possível, se o contrato permitir resultado parcial [A CONFIRMAR no #9] |
+| `SIM-002` (parâmetros sem vigência para algum ano) | Resultado | Aviso claro com a mensagem do servidor (ano); a API não devolve resultado parcial para esse erro. Regimes que não se aplicam (receita acima do teto etc.) vêm em `regimes_indisponiveis` e viram aviso por regime, sem esconder os demais (issues #23 e #28) |
 | 501 (`NotImplementedYet`, enquanto o backend está em construção) | Resultado | "Este regime ainda não está disponível nesta versão" e oculta a coluna |
 | 5xx, rede ou tempo esgotado | Qualquer | Mensagem com "Tentar de novo"; nada de código técnico para o usuário; `code` fica visível em detalhe expansível para suporte |
 | Fragmento da URL inválido | Simulador | Vai ao formulário preenchido no que for válido, com aviso |
