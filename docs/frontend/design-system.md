@@ -1,6 +1,6 @@
 # Design system e tokens do front-end
 
-> **Status:** tokens e base de estilo **implementados** na issue #17 (`web/src/styles`), com teste de contraste dos pares nos temas claro e escuro; os componentes (`ui/`) seguem na #18. Como não havia CSS existente, o design system **nasce** com o front (sem inventário a fazer). Tokens em três camadas (primitivo, semântico, componente); componentes só consomem o semântico. Contexto: [plano do front-end](plano-frontend.md).
+> **Status:** tokens e base de estilo **implementados** na issue #17 (`web/src/styles`), com teste de contraste dos pares nos temas claro e escuro; os componentes de `web/src/ui` estão **implementados** na issue #18 (Button, TextField, MoneyField, PercentField, Select, CheckboxGroup, Callout, Disclosure, Tabs, Table, DefinitionList, Badge, Skeleton, VisuallyHidden, SkipLink), com vitrine em `#/ui` (somente em desenvolvimento) e teste do axe sobre ela; o `Combobox` fica na #22 e o `RouteAnnouncer` na #19. Como não havia CSS existente, o design system **nasce** com o front (sem inventário a fazer). Tokens em três camadas (primitivo, semântico, componente); componentes só consomem o semântico. Contexto: [plano do front-end](plano-frontend.md).
 
 ## 1. Direção visual
 
