@@ -1,4 +1,6 @@
-import { NotImplementedYetError } from "../errors/not-implemented-yet-error.ts";
+import { CbsStrategy } from "../taxes/cbs-strategy.ts";
+import { HybridDasStrategy } from "../taxes/hybrid-das-strategy.ts";
+import { IbsStrategy } from "../taxes/ibs-strategy.ts";
 import type { TaxStrategy } from "../taxes/tax-strategy.ts";
 import { SimplesNacional } from "./simples-nacional.ts";
 
@@ -7,6 +9,6 @@ export class SimplesHibrido extends SimplesNacional {
   override readonly name: string = "SIMPLES_HIBRIDO";
 
   protected override taxes(): readonly TaxStrategy[] {
-    throw new NotImplementedYetError("DAS sem PIS/Cofins/ICMS/ISS e CBS/IBS no regime regular");
+    return [new HybridDasStrategy(), new CbsStrategy(), new IbsStrategy()];
   }
 }
