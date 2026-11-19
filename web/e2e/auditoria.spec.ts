@@ -64,9 +64,13 @@ test.describe("WCAG 2.4.7 e 2.4.11: foco visível e não obscurecido", () => {
         const state = await page.evaluate(() => {
           const el = document.activeElement as HTMLElement | null;
           if (!el || el === document.body) return null;
-          const style = getComputedStyle(el);
+          // Em campos de formulário o anel fica no contêiner arredondado (`:focus-within`), não no `input`.
+          const ring = (element: Element): boolean => {
+            const style = getComputedStyle(element);
+            return style.outlineStyle !== "none" && Number.parseFloat(style.outlineWidth) >= 2;
+          };
           const rect = el.getBoundingClientRect();
-          const outline = style.outlineStyle !== "none" && Number.parseFloat(style.outlineWidth) >= 2;
+          const outline = ring(el) || (el.closest('[class*="_control_"]') !== null && ring(el.closest('[class*="_control_"]') as Element));
           return { label: `${el.tagName.toLowerCase()} "${(el.textContent ?? "").trim().slice(0, 25)}"`, outline, inViewport: rect.top >= -1 && rect.bottom <= window.innerHeight + 1 };
         });
         if (state === null) break;

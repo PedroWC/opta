@@ -21,6 +21,10 @@
 .table td:first-child {
   text-align: left;
 }
+/* Valores em reais não quebram ("R$" fica junto do número); só a última coluna (texto, ex.: fonte legal) pode quebrar. */
+.table td:not(:last-child) {
+  white-space: nowrap;
+}
 .table tbody tr:nth-child(even) {
   background: var(--color-surface);
 }
