@@ -1,7 +1,7 @@
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  { ignores: ["node_modules", "dist", "coverage"] },
+  { ignores: ["node_modules", "dist", "coverage", "web", "reports", ".stryker-tmp"] },
   ...tseslint.configs.strict,
   {
     files: ["src/**/*.ts"],
