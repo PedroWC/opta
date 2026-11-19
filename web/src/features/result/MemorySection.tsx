@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { AnoResultado, LinhaTributo } from "./memoryTypes.ts";
 import { formatBRL, formatRate } from "../../lib/format.ts";
 import { useMediaQuery } from "../../lib/useMediaQuery.ts";
@@ -89,12 +89,12 @@ function LinesList({ regime }: { regime: RegimeYear }) {
   );
 }
 
-function YearMemory({ year }: { year: AnoResultado }) {
+function YearMemory({ year, printing }: { year: AnoResultado; printing: boolean }) {
   const [open, setOpen] = useState(false);
   const narrow = useMediaQuery("(max-width: 40em)");
   return (
-    <Disclosure summary={`${year.ano}`} onToggle={setOpen}>
-      {open ? (
+    <Disclosure summary={`${year.ano}`} onToggle={setOpen} open={printing || undefined}>
+      {open || printing ? (
         <Tabs
           label={`Regimes de ${year.ano}`}
           initialId={year.melhor_regime}
@@ -114,12 +114,24 @@ function YearMemory({ year }: { year: AnoResultado }) {
 
 /** Memória de cálculo auditável (RF-06): um acordeão por ano, abas por regime e a fonte legal em cada linha. */
 export function MemorySection({ years }: { years: readonly AnoResultado[] }) {
+  // Ao imprimir, todos os anos aparecem expandidos (a folha impressa não tem como abrir um item).
+  const [printing, setPrinting] = useState(false);
+  useEffect(() => {
+    const before = (): void => setPrinting(true);
+    const after = (): void => setPrinting(false);
+    window.addEventListener("beforeprint", before);
+    window.addEventListener("afterprint", after);
+    return () => {
+      window.removeEventListener("beforeprint", before);
+      window.removeEventListener("afterprint", after);
+    };
+  }, []);
   return (
     <section aria-labelledby="memoria">
       <h2 id="memoria" tabIndex={-1}>Memória de cálculo</h2>
       <p>Abra um ano para ver, regime a regime, a base, a alíquota, o valor e a fonte legal de cada tributo.</p>
       {years.map((year) => (
-        <YearMemory key={year.ano} year={year} />
+        <YearMemory key={year.ano} year={year} printing={printing} />
       ))}
     </section>
   );

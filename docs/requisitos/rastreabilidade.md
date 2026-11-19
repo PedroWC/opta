@@ -32,7 +32,7 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RNF-03 | — | — | `test/contract/openapi-contract.test.ts` | Coberto (contrato válido; implementação nas issues #10 e #11) |
 | RNF-04 | — | — | `vitest.config.ts` (limiar de cobertura) | Coberto |
 | RNF-08 | — | — | `.dependency-cruiser.cjs` | Coberto |
-| RNF-09 | — | US-09 | `web/eslint.config.js` (jsx-a11y), `web/src/App.test.tsx`, `web/src/styles/tokens.test.ts`, `web/src/ui/ui.test.tsx`, `web/src/app/app.test.tsx`, `web/e2e/acessibilidade-e-responsividade.spec.ts` | Parcial (lint, landmarks, contraste AA, axe em todas as telas, teclado, pular link e anúncio de rota; E2E com axe real e teclado em `web/e2e`; testes manuais e auditoria na #30) |
+| RNF-09 | — | US-09 | `web/eslint.config.js` (jsx-a11y), `web/src/App.test.tsx`, `web/src/styles/tokens.test.ts`, `web/src/ui/ui.test.tsx`, `web/src/app/app.test.tsx`, `web/e2e/acessibilidade-e-responsividade.spec.ts`, `web/e2e/auditoria.spec.ts` | Parcial (lint, landmarks, contraste AA, axe em todas as telas, teclado, pular link e anúncio de rota; E2E com axe real e teclado em `web/e2e`; testes manuais e auditoria final em `docs/frontend/auditoria-final.md` e `web/e2e/auditoria.spec.ts` (alvos, foco, espaçamento, zoom, impressão); leitor de tela real e teste com pessoas pendentes) |
 | RNF-10 | — | US-08 | — (viewports no E2E, previsto no FE-14) | Pendente |
 | RNF-11 | — | — | — (Lighthouse, previsto no FE-16) | Pendente |
 | RNF-12 | — | US-07 | `web/src/features/share/share.test.tsx`, `web/src/api/client.test.ts` | Parcial (dados só no fragmento e no corpo do POST; sem analytics; cabeçalhos e medição na #31) |

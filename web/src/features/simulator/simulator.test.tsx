@@ -228,3 +228,24 @@ describe("RNF-09: acessibilidade do formulário", () => {
     }
   });
 });
+
+describe("Heurísticas 2 e 5: siglas explicadas e prevenção de engano", () => {
+  test("heurística 2: CBS, IBS e DAS aparecem com a sigla explicada", () => {
+    setup();
+    expect(screen.getAllByText("CBS")[0]).toHaveAttribute("title", "Contribuição sobre Bens e Serviços");
+    expect(screen.getAllByText("IBS")[0]).toHaveAttribute("title", "Imposto sobre Bens e Serviços");
+    expect(screen.getByText("DAS")).toHaveAttribute("title", "Documento de Arrecadação do Simples Nacional");
+  });
+
+  test("heurística 5: folha maior que a receita avisa, sem impedir o envio", async () => {
+    const { onSubmit, user } = setup({ initialValues: { ...EXAMPLE_VALUES, payroll: "2000000.00" } });
+    expect(screen.getByText(/A folha informada é maior que a receita/)).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "Simular regimes" }));
+    await vi.waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
+  });
+
+  test("heurística 5: folha menor ou igual à receita não avisa", () => {
+    setup({ initialValues: { ...EXAMPLE_VALUES, payroll: "1800000.00" } });
+    expect(screen.queryByText(/A folha informada é maior que a receita/)).not.toBeInTheDocument();
+  });
+});

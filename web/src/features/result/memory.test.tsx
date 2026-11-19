@@ -1,4 +1,4 @@
-import { screen, within } from "@testing-library/react";
+import { act, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { describe, expect, test, vi } from "vitest";
@@ -104,5 +104,22 @@ describe("RF-06 e US-04: memória de cálculo por ano e regime", () => {
     const narrow = renderResult();
     await openYear("2026");
     await expectNoA11yViolations(narrow.container);
+  });
+});
+
+describe("Impressão: a memória de cálculo sai expandida", () => {
+  test("RF-06: ao imprimir (beforeprint) todos os anos abrem e voltam ao normal depois (afterprint)", async () => {
+    renderResult();
+    const memory = (await screen.findByRole("heading", { level: 2, name: "Memória de cálculo" })).closest("section") as HTMLElement;
+    expect(memory.querySelectorAll("details[open]")).toHaveLength(0);
+    act(() => {
+      window.dispatchEvent(new Event("beforeprint"));
+    });
+    expect(memory.querySelectorAll("details[open]")).toHaveLength(8);
+    expect(within(memory).getAllByRole("tablist")).toHaveLength(8);
+    act(() => {
+      window.dispatchEvent(new Event("afterprint"));
+    });
+    expect(memory.querySelectorAll("details[open]")).toHaveLength(0);
   });
 });
