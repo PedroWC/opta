@@ -9,7 +9,7 @@ Legenda: `[ ]` campo · `( )` opção · `[Botão]` ação · `▾` lista · `(1
 - **Uma pergunta por seção**, em ordem de esforço: quem é a empresa → quanto fatura → para quem vende → o que comparar.
 - **Resultado em página própria**, com o formulário a um clique de distância ("Ajustar dados"); em desktop, o resumo da entrada fica visível ao lado (colapsável).
 - **Leitura em camadas:** primeiro a recomendação (1 frase + economia), depois o gráfico, depois a tabela, por fim a memória de cálculo (detalhe sob demanda).
-- Navegação global com 3 itens: **Simulador · Premissas · Metodologia**.
+- Navegação global com 3 itens: **Simulador · Premissas · Metodologia**. Como são só três itens, a navegação fica visível também no celular (quebra de linha), sem menu em `dialog`; a #19 implementou assim.
 
 ## 2. Tela 1 — Simulador (`/`)
 
