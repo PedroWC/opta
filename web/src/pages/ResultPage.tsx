@@ -5,6 +5,7 @@ import type { SimulationRequest } from "../api/types.ts";
 import { usePageTitle } from "../app/usePageTitle.ts";
 import { ChartSection } from "../features/result/ChartSection.tsx";
 import { ComparisonTable } from "../features/result/ComparisonTable.tsx";
+import { MemorySection } from "../features/result/MemorySection.tsx";
 import { RecommendationCard } from "../features/result/RecommendationCard.tsx";
 import { regimeStyle } from "../features/result/regimes.ts";
 import { formatBRL } from "../lib/format.ts";
@@ -74,6 +75,7 @@ export function ResultPage() {
           <ChartSection simulation={data} />
           <h2>Comparativo ano a ano</h2>
           <ComparisonTable simulation={data} />
+          <MemorySection years={data.anos} />
           {data.avisos.length > 0 ? (
             <section aria-labelledby="avisos">
               <h2 id="avisos">Avisos</h2>

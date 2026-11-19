@@ -11,12 +11,13 @@ export const requestFixture: SimulationRequest = {
   aliquota_icms_iss: "5.0000",
 };
 
-const line = (codigo: string, valor: string, fonte: string) => ({
+const line = (codigo: string, valor: string, fonte: string, detalhes?: Array<{ codigo: string; valor: string; aliquota: string; fonte: string }>) => ({
   codigo,
   base: "300000.00",
   aliquota: "8.0800",
   valor,
   fonte,
+  ...(detalhes ? { detalhes: detalhes.map((detail) => ({ ...detail, base: "24240.00" })) } : {}),
 });
 
 export const simulationFixture: SimulationResponse = {
@@ -24,7 +25,12 @@ export const simulationFixture: SimulationResponse = {
   anos: Array.from({ length: 8 }, (_, index) => ({
     ano: 2026 + index,
     regimes: [
-      { regime: "SIMPLES", carga_total: "24240.00", aliquota_efetiva: "8.0800", tributos: [line("DAS", "24240.00", "LC 123/2006, Anexo III, 2ª faixa")] },
+      { regime: "SIMPLES", carga_total: "24240.00", aliquota_efetiva: "8.0800", tributos: [
+        line("DAS", "24240.00", "LC 123/2006, Anexo III, 2ª faixa", [
+          { codigo: "IRPJ", valor: "969.60", aliquota: "4.0000", fonte: "LC 123/2006: partilha do DAS" },
+          { codigo: "CPP", valor: "10520.16", aliquota: "43.4000", fonte: "LC 123/2006: partilha do DAS" },
+        ]),
+      ] },
       { regime: "SIMPLES_HIBRIDO", carga_total: "36114.96", aliquota_efetiva: "12.0383", tributos: [line("DAS", "20094.96", "LC 123/2006, Anexo III, 2ª faixa")] },
       { regime: "LUCRO_PRESUMIDO", carga_total: "54060.00", aliquota_efetiva: "18.0200", tributos: [line("IRPJ", "14400.00", "Lei 9.249/1995")] },
     ],

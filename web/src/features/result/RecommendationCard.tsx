@@ -1,6 +1,6 @@
 import type { SimulationResponse } from "../../api/types.ts";
 import { formatBRL } from "../../lib/format.ts";
-import { Badge } from "../../ui/index.ts";
+import { Badge, Button } from "../../ui/index.ts";
 import { FACTOR_LABELS, regimeStyle } from "./regimes.ts";
 import styles from "./Result.module.css";
 
@@ -30,6 +30,18 @@ export function RecommendationCard({ recommendation }: Props) {
           O que mais pesou: <strong>{factor}</strong>, com diferença de {formatBRL(recommendation.fator_decisivo.diferenca)} no período.
         </p>
       ) : null}
+      <p>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            const heading = document.getElementById("memoria");
+            heading?.scrollIntoView({ behavior: "smooth", block: "start" });
+            heading?.focus();
+          }}
+        >
+          Ver como calculamos
+        </Button>
+      </p>
       <p className={styles["caveat"]}>Na sua simulação, com as premissas de referência; não é garantia nem consultoria tributária.</p>
     </section>
   );
