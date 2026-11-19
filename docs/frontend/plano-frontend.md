@@ -176,9 +176,9 @@ Contrato-base: especificação, seção 5, e `docs/produto/mapa-do-site.md`.
 
 **Privacidade (RNF-06):** o corpo da simulação trafega por `POST` (não aparece em URL de API), nada vai para analytics ou log do front, e os dados do link ficam no **fragmento** (`#`), que o navegador não envia ao servidor de hospedagem.
 
-### Pedidos ao contrato (a levar ao #9, antes do #10 a #12)
+### Pedidos ao contrato (atendidos em [docs/api/openapi.yaml](../api/openapi.yaml), issue #9)
 
-Estes itens não existem hoje e o front depende deles. São **propostas**, não decisões:
+Os itens abaixo foram incorporados ao contrato (DEC-14). Diferenças: o fator decisivo usa os códigos `TRIBUTOS_SOBRE_RENDA`, `ENCARGOS_SOBRE_FOLHA`, `TRIBUTOS_SOBRE_CONSUMO` e `NENHUM` (categorias já calculadas no domínio; códigos mais finos, como crédito B2B, ficam como evolução); regimes que não se aplicam (por exemplo, receita acima do teto do Simples) vêm em `regimes_indisponiveis`, sem impedir os demais, o que resolve a dúvida sobre resultado parcial; e a busca de atividade usa `q`, `pagina` e `tamanho`. Propostas originais:
 
 1. **Erros por campo** no Problem Details do 422: extensão `errors: [{ pointer: "/receita_bruta_anual", detail: "..." }]`. Hoje o handler devolve só `code` e `detail`.
 2. **Valores monetários e alíquotas como texto decimal** (`"1800000.00"`, `"0.0600"`), não `number`, para não perder precisão no JSON (coerente com RNF-02 e ADR-0003).

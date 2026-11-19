@@ -13,4 +13,5 @@ Formato [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versionamen
 - Lucro Presumido (#6): `IrpjStrategy` (com adicional), `CsllStrategy`, `CppStrategy` e `ActivitySalesTax` (ISS ou ICMS), compondo o regime com os tributos sobre o consumo de 2026 a 2033 (RN-07).
 - Simples híbrido (#7): `HybridDasStrategy` (DAS sem as parcelas de CBS/IBS) e CBS/IBS no regime regular (RN-06); `EmbeddedCustomerCredit` e `FullCustomerCredit` demonstram o crédito ao cliente B2B (RN-10).
 - Comparador e recomendação (#8): `RegimeComparison`, `Recommendation` e `DecisiveFactor` (menor carga no ano e acumulada, economia sobre o segundo colocado e fator decisivo por categoria) e `CompareRegimesUseCase` (RN-08, RF-03).
+- Contrato OpenAPI 3.1 da API v1 (#9) em `docs/api/openapi.yaml`, com os pedidos do front-end (DEC-14), validado por teste de contrato.
 - Planejamento do front-end: plano, wireframes, design system, acessibilidade, pesquisa com usuários, backlog (FE-01 a FE-20), ADR-0006 e registro de decisões; novos RF-09 a RF-11, RNF-09 a RNF-12 e US-05 a US-10.

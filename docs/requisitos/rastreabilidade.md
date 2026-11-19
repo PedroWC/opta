@@ -26,6 +26,7 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RN-09 | UC-01 | US-01 | `test/domain/company-profile.test.ts` | Coberto |
 | RN-10 | UC-01 | US-02 | `test/domain/simples-hibrido.test.ts` | Coberto (crédito embutido x integral; ⚠️) |
 | RNF-01 | — | — | `eslint.config.js` e `.dependency-cruiser.cjs` (lint) | Coberto |
+| RNF-03 | — | — | `test/contract/openapi-contract.test.ts` | Coberto (contrato válido; implementação nas issues #10 e #11) |
 | RNF-04 | — | — | `vitest.config.ts` (limiar de cobertura) | Coberto |
 | RNF-08 | — | — | `.dependency-cruiser.cjs` | Coberto |
 | RNF-09 | — | US-09 | — (axe no CI e teste manual, previstos no FE-14 e FE-15) | Pendente |
