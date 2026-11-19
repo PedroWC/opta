@@ -9,6 +9,8 @@ import { SimplesNacional } from "./domain/regimes/simples-nacional.ts";
 import type { TaxRateTableRepository } from "./domain/ports/tax-rate-table-repository.ts";
 import { RepositoryProvider } from "./infrastructure/sql/repository-provider.ts";
 import { InMemoryTaxRateTableRepository } from "./infrastructure/in-memory-tax-rate-table-repository.ts";
+import { SecurityHeaders } from "./presentation/security-headers.ts";
+import { StaticSiteController } from "./presentation/static-site-controller.ts";
 import { HealthController } from "./presentation/health-controller.ts";
 import { HttpServer } from "./presentation/http-server.ts";
 import { ProblemDetailsHandler } from "./presentation/problem-details-handler.ts";
@@ -25,7 +27,7 @@ export class CompositionRoot {
   readonly runSimulation: RunSimulationUseCase;
   readonly httpServer: HttpServer;
 
-  constructor(rateTables: TaxRateTableRepository = new InMemoryTaxRateTableRepository()) {
+  constructor(rateTables: TaxRateTableRepository = new InMemoryTaxRateTableRepository(), webDirectory?: string) {
     const regimes = [new SimplesNacional(), new SimplesHibrido(), new LucroPresumido()];
     this.simulateRegimes = new SimulateRegimesUseCase(regimes, rateTables);
     this.runSimulation = new RunSimulationUseCase(regimes, rateTables);
@@ -41,15 +43,23 @@ export class CompositionRoot {
       rateTables,
       CompositionRoot.serviceVersion(),
     );
-    this.httpServer = new HttpServer(new HealthController(), simulation, reference, new ProblemDetailsHandler());
+    this.httpServer = new HttpServer(
+      new HealthController(),
+      simulation,
+      reference,
+      new ProblemDetailsHandler(),
+      new SecurityHeaders(),
+      webDirectory ? new StaticSiteController(webDirectory) : undefined,
+    );
   }
 
   /**
    * Escolhe o repositório pela variável OPTA_DB: `memory` (padrão), `sqlite` (OPTA_SQLITE_PATH, padrão
-   * `opta.db`) ou `oracle` (OPTA_ORACLE_*). Migra o esquema e as sementes antes de servir.
+   * `opta.db`) ou `oracle` (OPTA_ORACLE_*). Migra o esquema e as sementes antes de servir. Com `OPTA_WEB_DIR` (ex.:
+   * `web/dist`), serve também o front-end pela mesma origem (DEC-15).
    */
   static async fromEnvironment(env: Readonly<Record<string, string | undefined>>): Promise<CompositionRoot> {
-    return new CompositionRoot(await new RepositoryProvider().create(env));
+    return new CompositionRoot(await new RepositoryProvider().create(env), env["OPTA_WEB_DIR"]);
   }
 
   /** Versão do serviço, lida do package.json (fonte única). */
