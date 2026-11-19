@@ -1,6 +1,6 @@
 # Design system e tokens do front-end
 
-> **Status:** proposta. Como não há CSS existente, o design system **nasce** com o front (sem inventário a fazer). Tokens em três camadas (primitivo, semântico, componente); componentes só consomem o semântico. Contexto: [plano do front-end](plano-frontend.md).
+> **Status:** tokens e base de estilo **implementados** na issue #17 (`web/src/styles`), com teste de contraste dos pares nos temas claro e escuro; os componentes (`ui/`) seguem na #18. Como não havia CSS existente, o design system **nasce** com o front (sem inventário a fazer). Tokens em três camadas (primitivo, semântico, componente); componentes só consomem o semântico. Contexto: [plano do front-end](plano-frontend.md).
 
 ## 1. Direção visual
 
@@ -30,7 +30,7 @@ Primitivos e semânticos do tema claro:
 | `--color-regime-hibrido` | `#B4540A` | `#FFFFFF` | 5,0:1 | Série "Simples híbrido" |
 | `--color-regime-presumido` | `#0F7B6C` | `#FFFFFF` | 5,2:1 | Série "Lucro Presumido" |
 
-Tema escuro (mapeamento, verificado: todos ≥ 4,5:1 sobre `#0F131A`): texto `#EEF1F6`, muted `#A9B4C4`, ação e série Simples `#8AB4FF`, híbrido `#F0A35E`, presumido `#4FD1B8`, perigo `#FF8A80`, borda forte `#7C889A` (5,2:1).
+Tema escuro (implementado em `themes.css`, ativado por `data-theme="dark"`; fundo de cartão `#171C25`, aviso `#3A2A05`/`#FFD98A`, faixa de premissas `#0F2A55`/`#BBD3FF`, sucesso `#6FD3A0`; mapeamento verificado: todos ≥ 4,5:1 sobre `#0F131A`): texto `#EEF1F6`, muted `#A9B4C4`, ação e série Simples `#8AB4FF`, híbrido `#F0A35E`, presumido `#4FD1B8`, perigo `#FF8A80`, borda forte `#7C889A` (5,2:1).
 
 Regras:
 
