@@ -32,7 +32,7 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RNF-03 | — | — | `test/contract/openapi-contract.test.ts` | Coberto (contrato válido; implementação nas issues #10 e #11) |
 | RNF-04 | — | — | `vitest.config.ts` (limiar de cobertura) | Coberto |
 | RNF-08 | — | — | `.dependency-cruiser.cjs` | Coberto |
-| RNF-09 | — | US-09 | — (axe no CI e teste manual, previstos no FE-14 e FE-15) | Pendente |
+| RNF-09 | — | US-09 | `web/eslint.config.js` (jsx-a11y), `web/src/App.test.tsx`, `web/src/styles/tokens.test.ts` | Parcial (lint, landmark e contraste AA dos tokens em dois temas; axe e testes manuais nas issues #18 a #30) |
 | RNF-10 | — | US-08 | — (viewports no E2E, previsto no FE-14) | Pendente |
 | RNF-11 | — | — | — (Lighthouse, previsto no FE-16) | Pendente |
 | RNF-12 | — | US-07 | — | Pendente |

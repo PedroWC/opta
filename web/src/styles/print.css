@@ -1,0 +1,26 @@
+@media print {
+  :root {
+    --color-bg: #ffffff;
+    --color-text: #000000;
+  }
+
+  body {
+    font-size: 11pt;
+  }
+
+  .skip-link,
+  nav,
+  button,
+  [data-no-print] {
+    display: none !important;
+  }
+
+  a[href]::after {
+    content: " (" attr(href) ")";
+  }
+
+  table,
+  figure {
+    break-inside: avoid;
+  }
+}
