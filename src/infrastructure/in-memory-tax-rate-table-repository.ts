@@ -1,5 +1,11 @@
 import { EffectivePeriodNotFoundError } from "../domain/errors/effective-period-not-found-error.ts";
 import type { TaxRateTableRepository, TransitionRates } from "../domain/ports/tax-rate-table-repository.ts";
+import { UnsupportedActivityError } from "../domain/errors/unsupported-activity-error.ts";
+import { FixedAnnexActivity, PayrollFactorActivity } from "../domain/simples/simples-activity.ts";
+import type { SimplesActivity } from "../domain/simples/simples-activity.ts";
+import type { SimplesAnnex } from "../domain/simples/simples-annex.ts";
+import type { SimplesAnnexTable } from "../domain/simples/simples-annex-table.ts";
+import { SimplesReferenceTables } from "./simples-reference-tables.ts";
 import { TaxRate } from "../domain/shared/tax-rate.ts";
 import type { TaxYear } from "../domain/shared/tax-year.ts";
 
@@ -27,6 +33,25 @@ export class InMemoryTaxRateTableRepository implements TaxRateTableRepository {
     2032: { cbsIsTestRate: false, ibsPercentageOfReference: 40n, icmsIssPercentageInForce: 60 },
     2033: { cbsIsTestRate: false, ibsPercentageOfReference: 100n, icmsIssPercentageInForce: 0 },
   };
+
+  private static readonly PAYROLL_FACTOR_CNAES: readonly string[] = [
+    "6201-5/01", "6201-5/02", "6202-3/00", "6203-1/00", "6204-0/00", "6209-1/00", "6311-9/00",
+  ];
+  private static readonly ANNEX_III_CNAES: readonly string[] = ["8630-5/04", "9602-5/01", "6920-6/01"];
+
+  private readonly simplesTables = new SimplesReferenceTables();
+
+  async simplesAnnexTableFor(annex: SimplesAnnex): Promise<SimplesAnnexTable> {
+    // Cenário de referência: as mesmas faixas valem nos 8 anos (o total do DAS não muda na transição).
+    return this.simplesTables.tableFor(annex);
+  }
+
+  /** Mapa provisório de CNAE para anexo (⚠️ conferir); será a tabela ATIVIDADE_CNAE (issue #3). */
+  async simplesActivityFor(cnae: string): Promise<SimplesActivity> {
+    if (InMemoryTaxRateTableRepository.PAYROLL_FACTOR_CNAES.includes(cnae)) return new PayrollFactorActivity();
+    if (InMemoryTaxRateTableRepository.ANNEX_III_CNAES.includes(cnae)) return new FixedAnnexActivity("III");
+    throw new UnsupportedActivityError(cnae);
+  }
 
   async transitionRatesFor(taxYear: TaxYear): Promise<TransitionRates> {
     const rule = InMemoryTaxRateTableRepository.RULES[taxYear.year];

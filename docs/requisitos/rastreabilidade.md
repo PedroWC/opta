@@ -4,8 +4,8 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 
 | Requisito/Regra | Caso de uso | História | Teste | Situação |
 |---|---|---|---|---|
-| RF-01 | UC-01 | US-01, US-06 | — | Pendente (esqueleto) |
-| RF-02 | UC-01 | US-01 | `test/application/simulate-regimes-use-case.test.ts` | Parcial (estrutura; cálculos pendentes) |
+| RF-01 | UC-01 | US-01, US-06 | `test/domain/das-strategy.test.ts` | Parcial (Simples Nacional puro; híbrido e Lucro Presumido pendentes) |
+| RF-02 | UC-01 | US-01 | `test/application/simulate-regimes-use-case.test.ts`, `test/domain/das-strategy.test.ts` | Parcial (Simples Nacional nos 8 anos; demais regimes pendentes) |
 | RF-03 | UC-01 | US-02 | — | Pendente |
 | RF-04 | UC-02 | US-03, US-10 | — | Pendente |
 | RF-05 | UC-03 | US-03, US-10 | — | Pendente |
@@ -18,8 +18,8 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RN-01 | UC-01 | US-01 | `test/domain/transition.test.ts` | Coberto |
 | RN-02 | UC-01, UC-02 | US-01, US-03 | `test/domain/transition.test.ts` | Parcial (repositório em memória) |
 | RN-03 | UC-01 | US-04 | `test/domain/money.test.ts` | Coberto |
-| RN-04 | UC-01 | US-01 | — | Pendente |
-| RN-05 | UC-01 | US-01 | — | Pendente |
+| RN-04 | UC-01 | US-01 | `test/domain/das-strategy.test.ts`, `test/domain/simples-tables.test.ts` | Coberto (golden conferidos à mão; tabelas ⚠️ a conferir na fonte) |
+| RN-05 | UC-01 | US-01 | `test/domain/das-strategy.test.ts`, `test/domain/simples-tables.test.ts` | Coberto |
 | RN-06 | UC-01 | US-02 | `test/domain/tax-regime.test.ts` (herança) | Parcial |
 | RN-07 | UC-01 | US-01 | — | Pendente |
 | RN-08 | UC-01 | US-02 | — | Pendente |

@@ -15,3 +15,8 @@ Documentação em português; identificadores de código em inglês. Nomes próp
 | Resultado anual | `AnnualResult` | Linhas e carga total |
 | Tabela de alíquotas | `TaxRateTableRepository` | Porta; vigência por ano |
 | Vigência | `EffectivePeriod…` | Erro quando ausente |
+| DAS (estratégia) | `DasStrategy` | Calcula e reparte o DAS do Simples |
+| Faixa / tabela de anexo | `SimplesBracket`, `SimplesAnnexTable` | Teto de RBT12, alíquota nominal, parcela a deduzir |
+| Partilha do DAS | `DasPartition` | Percentual de cada parcela; soma 100% |
+| Fator R | `FatorR` | Folha ÷ RBT12; limite de 28% |
+| Regra de anexo da atividade | `SimplesActivity` | `FixedAnnexActivity`, `PayrollFactorActivity` |

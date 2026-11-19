@@ -68,9 +68,9 @@ describe("RN-06: o Simples híbrido é um Simples", () => {
   });
 });
 
-describe("Esqueleto: regimes ainda sem cálculo sinalizam pendência (backlog #4, #6, #7)", () => {
-  test.each([new SimplesNacional(), new SimplesHibrido(), new LucroPresumido()])(
-    "RN-04/RN-06/RN-07: %s falha de forma explícita até ser implementado",
+describe("Esqueleto: regimes ainda sem cálculo sinalizam pendência (backlog #6 e #7)", () => {
+  test.each([new SimplesHibrido(), new LucroPresumido()])(
+    "RN-06/RN-07: %s falha de forma explícita até ser implementado",
     async (regime) => {
       await expect(regime.simulate(contextFor(2026))).rejects.toBeInstanceOf(NotImplementedYetError);
     },
