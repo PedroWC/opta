@@ -9,9 +9,9 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RF-03 | UC-01 | US-02 | `test/presentation/simulation-api.test.ts`, `test/domain/regime-comparison.test.ts`, `test/application/compare-regimes-use-case.test.ts` | Coberto (recomendação na API) ; recomendação na interface (`web/src/pages/result.test.tsx`) |
 | RF-04 | UC-02 | US-03, US-10 | `test/presentation/reference-api.test.ts`, `test/contract/api-conforms-to-openapi.test.ts` | Coberto na API (`GET /v1/premissas/aliquotas`); tela pendente (#12) |
 | RF-05 | UC-03 | US-03, US-10 | `test/presentation/reference-api.test.ts`, `test/contract/api-conforms-to-openapi.test.ts`, `web/src/features/simulator/cnae.test.tsx`, `web/src/ui/combobox.test.tsx` | Coberto na API (`GET /v1/atividades`) e no combobox de CNAE do simulador (teclado, busca com espera, cartão da atividade); consulta na tela de premissas pendente (#27) |
-| RF-06 | UC-01 | US-04 | `test/presentation/simulation-api.test.ts`, `test/domain/tax-regime.test.ts` | Coberto na API (linhas com base, alíquota, valor, fonte e detalhes) |
+| RF-06 | UC-01 | US-04 | `test/presentation/simulation-api.test.ts`, `test/domain/tax-regime.test.ts`, `web/src/features/result/memory.test.tsx` | Coberto na API e na interface (acordeão por ano, abas por regime, fonte legal por linha, partilha como detalhe) |
 | RF-07 | — | — | `test/health.test.ts`, `test/presentation/reference-api.test.ts` | Coberto (`/v1/health` e `/v1/versao`) |
-| RF-08 | UC-01 | US-01, US-08 | `web/src/features/result/chart.test.tsx`, `web/src/pages/result.test.tsx` | Parcial (formulário, tabela e gráfico por ano na interface; memória de cálculo e E2E pendentes: #25 e #29) |
+| RF-08 | UC-01 | US-01, US-08 | `web/src/features/result/chart.test.tsx`, `web/src/pages/result.test.tsx`, `web/src/features/result/memory.test.tsx` | Parcial (formulário, tabela e gráfico por ano na interface; memória de cálculo na interface; E2E pendente: #29) |
 | RF-09 | UC-01 | US-07 | — | Pendente (plano em `docs/frontend/`) |
 | RF-10 | UC-01 | US-05 | — | Pendente |
 | RF-11 | — | US-10 | — | Pendente |
