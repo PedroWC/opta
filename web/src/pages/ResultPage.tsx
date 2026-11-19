@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { useSimulation } from "../api/hooks.ts";
-import type { SimulationRequest } from "../api/types.ts";
 import { usePageTitle } from "../app/usePageTitle.ts";
+import { decodeFragment, encodeRequest } from "../features/share/inputUrlCodec.ts";
+import { CopyLinkButton } from "../features/share/CopyLinkButton.tsx";
 import { ChartSection } from "../features/result/ChartSection.tsx";
 import { ComparisonTable } from "../features/result/ComparisonTable.tsx";
 import { MemorySection } from "../features/result/MemorySection.tsx";
@@ -12,22 +13,23 @@ import { formatBRL } from "../lib/format.ts";
 import { Button, Callout, Skeleton } from "../ui/index.ts";
 import styles from "../features/result/Result.module.css";
 
-function requestFromState(state: unknown): SimulationRequest | null {
-  const candidate = (state as { request?: SimulationRequest } | null)?.request;
-  return candidate && typeof candidate.cnae === "string" ? candidate : null;
-}
-
-/** Resultado da simulação (UC-01). O pedido vem do `location.state`; a issue #26 troca por fragmento na URL. */
+/** Resultado da simulação (UC-01). A entrada vive no fragmento da URL (`#v1.…`), que o navegador não envia ao servidor. */
 export function ResultPage() {
   usePageTitle("Resultado");
   const location = useLocation();
-  const request = requestFromState(location.state);
+  const decoded = decodeFragment(location.hash);
+  const request = decoded.status === "valid" ? decoded.request : null;
   const simulation = useSimulation(request);
   const heading = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
     if (simulation.isSuccess) heading.current?.focus();
   }, [simulation.isSuccess]);
+
+  if (decoded.status === "invalid") {
+    // Link com dados que não passam na validação: volta ao formulário com o que for válido preenchido.
+    return <Navigate to={{ pathname: "/", hash: location.hash }} state={{ invalidLink: true }} replace />;
+  }
 
   if (!request) {
     return (
@@ -50,7 +52,8 @@ export function ResultPage() {
         <span>
           CNAE {request.cnae} · {request.uf} · Receita {formatBRL(request.receita_bruta_anual)} · {request.perfil_clientes.b2b_pct}% B2B
         </span>
-        <Link to="/" state={{ request }}>Ajustar dados</Link>
+        <Link to={{ pathname: "/", hash: `#${encodeRequest(request)}` }}>Ajustar dados</Link>
+        <CopyLinkButton />
       </p>
 
       {simulation.isPending ? <Skeleton label="Calculando 8 anos e 3 regimes…" lines={6} /> : null}

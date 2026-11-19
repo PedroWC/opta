@@ -5,15 +5,16 @@ import { MemoryRouter } from "react-router-dom";
 import { describe, expect, test } from "vitest";
 import { AppRoutes } from "../app/AppRoutes.tsx";
 import { formatBRL, formatRate, sumMoney } from "../lib/format.ts";
-import { requestFixture, simulationFixture } from "../test-utils/fixtures.ts";
+import { simulationFixture } from "../test-utils/fixtures.ts";
+import { resultLocation } from "../test-utils/routes.ts";
 import { expectNoA11yViolations } from "../test-utils/axe.ts";
 import { mockScreen } from "../test-utils/media.ts";
 import { renderWithApi } from "../test-utils/render.tsx";
 import { API, problem, server } from "../test-utils/server.ts";
 
-const renderResult = (state: unknown = { request: requestFixture }) =>
+const renderResult = (location: { pathname: string; hash?: string } = resultLocation()) =>
   renderWithApi(
-    <MemoryRouter initialEntries={[{ pathname: "/resultado", state }]}>
+    <MemoryRouter initialEntries={[location]}>
       <AppRoutes />
     </MemoryRouter>,
   );
@@ -33,7 +34,7 @@ describe("RNF-02: formatação em pt-BR sem usar number", () => {
 
 describe("US-01: resultado da simulação (recomendação e tabela)", () => {
   test("US-01: sem simulação aberta explica e leva ao simulador", () => {
-    renderResult(null);
+    renderResult({ pathname: "/resultado" });
     expect(screen.getByText(/Nenhuma simulação aberta/)).toBeInTheDocument();
     expect(screen.getByRole("link", { name: "Ir para o simulador" })).toHaveAttribute("href", "/");
   });

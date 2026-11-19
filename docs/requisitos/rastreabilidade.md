@@ -12,7 +12,7 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RF-06 | UC-01 | US-04 | `test/presentation/simulation-api.test.ts`, `test/domain/tax-regime.test.ts`, `web/src/features/result/memory.test.tsx` | Coberto na API e na interface (acordeão por ano, abas por regime, fonte legal por linha, partilha como detalhe) |
 | RF-07 | — | — | `test/health.test.ts`, `test/presentation/reference-api.test.ts` | Coberto (`/v1/health` e `/v1/versao`) |
 | RF-08 | UC-01 | US-01, US-08 | `web/src/features/result/chart.test.tsx`, `web/src/pages/result.test.tsx`, `web/src/features/result/memory.test.tsx` | Parcial (formulário, tabela e gráfico por ano na interface; memória de cálculo na interface; E2E pendente: #29) |
-| RF-09 | UC-01 | US-07 | — | Pendente (plano em `docs/frontend/`) |
+| RF-09 | UC-01 | US-07 | `web/src/features/share/share.test.tsx` | Coberto (codec `#v1.…`, "Copiar link", "Ajustar dados" e links inválidos); E2E pendente (#29) |
 | RF-10 | UC-01 | US-05 | — | Pendente |
 | RF-11 | — | US-10 | — | Pendente |
 | RN-01 | UC-01 | US-01 | `test/domain/transition.test.ts` | Coberto |
@@ -35,6 +35,6 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RNF-09 | — | US-09 | `web/eslint.config.js` (jsx-a11y), `web/src/App.test.tsx`, `web/src/styles/tokens.test.ts`, `web/src/ui/ui.test.tsx`, `web/src/app/app.test.tsx` | Parcial (lint, landmarks, contraste AA, axe em todas as telas, teclado, pular link e anúncio de rota; testes manuais e E2E nas issues #29 e #30) |
 | RNF-10 | — | US-08 | — (viewports no E2E, previsto no FE-14) | Pendente |
 | RNF-11 | — | — | — (Lighthouse, previsto no FE-16) | Pendente |
-| RNF-12 | — | US-07 | — | Pendente |
+| RNF-12 | — | US-07 | `web/src/features/share/share.test.tsx`, `web/src/api/client.test.ts` | Parcial (dados só no fragmento e no corpo do POST; sem analytics; cabeçalhos e medição na #31) |
 
 Itens de front-end (FE-nn) e a ligação com os testes previstos: [backlog do front-end](../frontend/backlog-frontend.md), seção 5.
