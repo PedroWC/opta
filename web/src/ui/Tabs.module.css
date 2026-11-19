@@ -1,0 +1,20 @@
+.list {
+  display: flex;
+  gap: var(--space-1);
+  border-bottom: var(--border-width) solid var(--color-border-strong);
+}
+.tab {
+  min-height: var(--target-min);
+  padding: 0 var(--space-4);
+  border: 0;
+  border-bottom: var(--border-width-strong) solid transparent;
+  background: transparent;
+  color: var(--color-text);
+  font: inherit;
+  cursor: pointer;
+}
+.tab[aria-selected="true"] {
+  border-bottom-color: var(--color-action);
+  color: var(--color-action);
+  font-weight: var(--font-weight-semibold);
+}

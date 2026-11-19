@@ -1,0 +1,16 @@
+.badge {
+  display: inline-block;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  border: var(--border-width) solid currentcolor;
+}
+.neutral {
+  color: var(--color-text);
+  background: var(--color-surface);
+}
+.highlight {
+  color: var(--color-info-text);
+  background: var(--color-info-bg);
+}
