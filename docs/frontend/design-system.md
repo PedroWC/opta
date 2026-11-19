@@ -96,6 +96,8 @@ Storybook (ou rota `/_prototipos` em desenvolvimento, decisão em FE-03) com uma
 
 ## 5. Checklist
 
+> Auditoria de acessibilidade e usabilidade: [auditoria-final.md](auditoria-final.md).
+
 - [ ] Nenhum valor literal de cor, espaço, raio ou sombra em componente.
 - [ ] Componentes usam só tokens semânticos ou de componente.
 - [ ] Todos os pares de cor passam no contraste AA (script no CI).
