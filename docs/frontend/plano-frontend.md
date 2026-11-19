@@ -205,7 +205,7 @@ O contrato já existe (#9): os tipos do front são **gerados** de `docs/api/open
 
 ## 9. Desempenho percebido
 
-Metas (RNF-11 proposto): LCP ≤ 2,5 s em 4G simulado; JS inicial ≤ 200 KB gzip; CLS < 0,1; INP < 200 ms. Táticas: carregar o gráfico (`Recharts`) com `React.lazy` só na rota de resultado; fonte do sistema (sem webfont) no MVP; esqueleto na carga; `staleTime` alto; `preconnect` para a API se for outra origem. Medição com Lighthouse no CI (alerta, sem bloquear no início).
+Metas (RNF-11 proposto): LCP ≤ 2,5 s em 4G simulado; JS inicial ≤ 200 KB gzip; CLS < 0,1; INP < 200 ms. Táticas: carregar o gráfico (`Recharts`) com `React.lazy` só na rota de resultado; fonte do sistema (sem webfont) no MVP; esqueleto na carga; `staleTime` alto; `preconnect` para a API se for outra origem. Medição com Lighthouse no CI (alerta, sem bloquear no início). **Medição do build (issue #24):** JS inicial de 141,7 KB gzip (meta de 200 KB) e gráfico em um pedaço separado de 108 KB gzip, baixado só quando o resultado aparece.
 
 ## 10. Segurança e privacidade do front
 
