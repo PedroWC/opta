@@ -28,6 +28,7 @@ Liga cada requisito e regra a casos de uso, histórias de usuário e testes. **M
 | RNF-01 | — | — | `eslint.config.js` e `.dependency-cruiser.cjs` (lint) | Coberto |
 | RNF-05 | — | — | `test/infrastructure/tax-rate-table-repository.contract.test.ts`, `test/infrastructure/sql-vigencia.test.ts`, `test/infrastructure/oracle-adapter.test.ts` | Coberto em memória e SQLite; Oracle só com conexão falsa (integração real pendente) |
 | RNF-07 | — | — | `test/presentation/simulation-api.test.ts`, `test/contract/api-conforms-to-openapi.test.ts` | Coberto em `/v1/simulacoes` (400/422/404/500 em Problem Details) |
+| RNF-04 (qualidade do núcleo) | — | — | `test/properties/*.properties.test.ts`, `stryker.config.json` (ADR-0007) | Coberto (propriedades; mutação 90,05%) |
 | RNF-03 | — | — | `test/contract/openapi-contract.test.ts` | Coberto (contrato válido; implementação nas issues #10 e #11) |
 | RNF-04 | — | — | `vitest.config.ts` (limiar de cobertura) | Coberto |
 | RNF-08 | — | — | `.dependency-cruiser.cjs` | Coberto |
