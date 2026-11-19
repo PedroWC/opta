@@ -10,7 +10,8 @@ import { MemorySection } from "../features/result/MemorySection.tsx";
 import { RecommendationCard } from "../features/result/RecommendationCard.tsx";
 import { regimeStyle } from "../features/result/regimes.ts";
 import { formatBRL } from "../lib/format.ts";
-import { Button, Callout, Skeleton } from "../ui/index.ts";
+import { ErrorPanel } from "../features/errors/ErrorPanel.tsx";
+import { Callout, Skeleton } from "../ui/index.ts";
 import styles from "../features/result/Result.module.css";
 
 /** Resultado da simulação (UC-01). A entrada vive no fragmento da URL (`#v1.…`), que o navegador não envia ao servidor. */
@@ -59,9 +60,11 @@ export function ResultPage() {
       {simulation.isPending ? <Skeleton label="Calculando 8 anos e 3 regimes…" lines={6} /> : null}
 
       {simulation.isError ? (
-        <Callout tone="error" title="Não foi possível calcular agora">
-          Seus dados foram mantidos. <Button variant="text" onClick={() => void simulation.refetch()}>Tentar de novo</Button>
-        </Callout>
+        <ErrorPanel
+          error={simulation.error}
+          onRetry={() => void simulation.refetch()}
+          adjustTo={{ pathname: "/", hash: `#${encodeRequest(request)}` }}
+        />
       ) : null}
 
       {data ? (

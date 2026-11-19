@@ -17,14 +17,18 @@ export function RecommendationCard({ recommendation }: Props) {
       <p>
         <Badge tone="highlight">Menor carga</Badge>
       </p>
-      {runnerUp ? (
+      {runnerUp && recommendation.economia_acumulada === "0.00" ? (
+        <p className={styles["saving"]}>
+          Os regimes empatam na carga acumulada de 2026–2033. Considere também as obrigações acessórias de cada um.
+        </p>
+      ) : runnerUp ? (
         <p className={styles["saving"]}>
           Economia acumulada 2026–2033: <strong>{formatBRL(recommendation.economia_acumulada)}</strong> em relação ao {runnerUp}.
         </p>
       ) : (
         <p>Só um regime pôde ser calculado para esta empresa.</p>
       )}
-      {runnerUp ? <p>Por quê: é o regime de menor carga acumulada entre os comparados.</p> : null}
+      {runnerUp && recommendation.economia_acumulada !== "0.00" ? <p>Por quê: é o regime de menor carga acumulada entre os comparados.</p> : null}
       {runnerUp && factor && recommendation.fator_decisivo.codigo !== "NENHUM" ? (
         <p>
           O que mais pesou: <strong>{factor}</strong>, com diferença de {formatBRL(recommendation.fator_decisivo.diferenca)} no período.

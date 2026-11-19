@@ -129,7 +129,7 @@ describe("US-01: resultado da simulação (recomendação e tabela)", () => {
       }),
     );
     renderResult();
-    expect(await screen.findByText("Não foi possível calcular agora")).toBeInTheDocument();
+    expect(await screen.findByText("Não conseguimos calcular agora")).toBeInTheDocument();
     await userEvent.click(screen.getByRole("button", { name: "Tentar de novo" }));
     expect(await screen.findByRole("heading", { name: "Fique no Simples Nacional" })).toBeInTheDocument();
   });

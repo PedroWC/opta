@@ -1,6 +1,7 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { SkipLink } from "../ui/index.ts";
 import { LegalNotice } from "./LegalNotice.tsx";
+import { OfflineBanner } from "./OfflineBanner.tsx";
 import { RouteAnnouncer } from "./RouteAnnouncer.tsx";
 import styles from "./AppShell.module.css";
 
@@ -34,6 +35,7 @@ export function AppShell({ assumptionsVersion }: Props) {
         </nav>
       </header>
       <main id={MAIN_ID} tabIndex={-1} className={styles["main"]}>
+        <OfflineBanner />
         <Outlet />
       </main>
       <footer className={styles["footer"]}>

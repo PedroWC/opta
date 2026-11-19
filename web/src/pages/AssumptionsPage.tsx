@@ -3,7 +3,8 @@ import { useAssumptions } from "../api/hooks.ts";
 import { usePageTitle } from "../app/usePageTitle.ts";
 import { ActivityLookup } from "../features/assumptions/ActivityLookup.tsx";
 import { AssumptionsTable } from "../features/assumptions/AssumptionsTable.tsx";
-import { Badge, Button, Callout, Skeleton } from "../ui/index.ts";
+import { ErrorPanel } from "../features/errors/ErrorPanel.tsx";
+import { Badge, Skeleton } from "../ui/index.ts";
 
 /** Premissas de cálculo (RF-04, UC-02) e consulta de atividade (RF-05, UC-03). */
 export function AssumptionsPage() {
@@ -24,11 +25,7 @@ export function AssumptionsPage() {
 
       <h2>Transição por ano</h2>
       {assumptions.isPending ? <Skeleton label="Carregando as premissas…" lines={5} /> : null}
-      {assumptions.isError ? (
-        <Callout tone="error" title="Não foi possível carregar as premissas">
-          <Button variant="text" onClick={() => void assumptions.refetch()}>Tentar de novo</Button>
-        </Callout>
-      ) : null}
+      {assumptions.isError ? <ErrorPanel error={assumptions.error} onRetry={() => void assumptions.refetch()} /> : null}
       {assumptions.data ? <AssumptionsTable years={assumptions.data.anos} /> : null}
 
       <h2>Consultar atividade (CNAE)</h2>
