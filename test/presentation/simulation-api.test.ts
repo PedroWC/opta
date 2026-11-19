@@ -79,6 +79,15 @@ describe("RF-01, RF-02, RF-03, RF-06: POST /v1/simulacoes devolve a simulação 
     expect(body.regimes_indisponiveis).toEqual([]);
   });
 
+  test("RN-04: acima de R$ 3,6 milhões avisa que ISS/ICMS ficam fora do DAS; abaixo disso não avisa", async () => {
+    const above = (await (await post({ ...validBody, receita_bruta_anual: "4000000.00" })).json()) as { avisos: string[] };
+    expect(above.avisos.some((notice) => notice.includes("R$ 3,6 milhões"))).toBe(true);
+    const below = (await (await post(validBody)).json()) as { avisos: string[] };
+    expect(below.avisos.some((notice) => notice.includes("R$ 3,6 milhões"))).toBe(false);
+    const presumedOnly = (await (await post({ ...validBody, receita_bruta_anual: "4000000.00", regimes: ["LUCRO_PRESUMIDO"] })).json()) as { avisos: string[] };
+    expect(presumedOnly.avisos.some((notice) => notice.includes("R$ 3,6 milhões"))).toBe(false);
+  });
+
   test("RF-01: simula só os regimes pedidos", async () => {
     const body = (await (await post({ ...validBody, regimes: ["LUCRO_PRESUMIDO", "SIMPLES"] })).json()) as {
       anos: { regimes: { regime: string }[] }[];

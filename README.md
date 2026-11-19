@@ -15,6 +15,7 @@ Requisitos: Node 22 ou superior.
 ```bash
 npm install
 npm run check      # tipos, lint (OO e camadas) e testes com cobertura
+npm run mutation   # testes de mutação do núcleo (lento; limiar no ADR-0007)
 npm run dev        # http://localhost:3000/v1/health e POST /v1/simulacoes (contrato em docs/api/openapi.yaml)
 ```
 

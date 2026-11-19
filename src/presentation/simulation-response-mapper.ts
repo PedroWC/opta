@@ -1,6 +1,7 @@
 import type { SimulationOutcome } from "../application/simulation-outcome.ts";
 import type { Recommendation } from "../domain/comparison/recommendation.ts";
 import type { AnnualResult } from "../domain/regimes/annual-result.ts";
+import { Money } from "../domain/shared/money.ts";
 import type { CompanyProfile } from "../domain/shared/company-profile.ts";
 import { TaxRate } from "../domain/shared/tax-rate.ts";
 import { TaxYear } from "../domain/shared/tax-year.ts";
@@ -14,6 +15,8 @@ export class SimulationResponseMapper {
     CONSUMPTION_TAXES: "TRIBUTOS_SOBRE_CONSUMO",
     NONE: "NENHUM",
   };
+
+  private static readonly SUBLIMIT = Money.fromText("3600000.00");
 
   private static readonly NOTICES: readonly string[] = [
     "Simulador educacional: não é consultoria tributária.",
@@ -37,8 +40,20 @@ export class SimulationResponseMapper {
         codigo: item.error.code,
         detalhe: item.error.message,
       })),
-      avisos: [...SimulationResponseMapper.NOTICES],
+      avisos: this.notices(outcome, company),
     };
+  }
+
+  /** Acima do sublimite, ISS/ICMS saem do DAS e não entram no cálculo do Simples (limitação do MVP). */
+  private notices(outcome: SimulationOutcome, company: CompanyProfile): string[] {
+    const notices = [...SimulationResponseMapper.NOTICES];
+    const simulatesSimples = outcome.results.some((result) => result.regime.startsWith("SIMPLES"));
+    if (simulatesSimples && company.annualGrossRevenue.greaterThan(SimulationResponseMapper.SUBLIMIT)) {
+      notices.push(
+        "Acima de R$ 3,6 milhões de receita, o ISS e o ICMS são recolhidos fora do DAS e não estão incluídos no cálculo do Simples; a carga real tende a ser maior.",
+      );
+    }
+    return notices;
   }
 
   private regimeOfYear(result: AnnualResult, revenueCents: bigint) {
